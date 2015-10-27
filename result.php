@@ -64,7 +64,7 @@ $rds = new Aws\Rds\RdsClient([
     'region'  => 'us-east-1'
 ]);
 $result = $rds->describeDBInstances([
-    'DBInstanceIdentifier' => 'mp1-jrh',
+    'DBInstanceIdentifier' => 'mp1-sb',
     #'Filters' => [
     #    [
     #        'Name' => '<string>', // REQUIRED
