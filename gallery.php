@@ -15,7 +15,7 @@ $client = RdsClient::factory(array(
 ));
 
 $result = $client->describeDBInstances(array(
-    'DBInstanceIdentifier' => 'itmo544jrhdb',
+    'DBInstanceIdentifier' => 'mp1-sb',
 ));
 
 $endpoint = "";
@@ -26,7 +26,7 @@ foreach ($result->getPath('DBInstances/*/Endpoint/Address') as $ep) {
     $endpoint = $ep;
 }   
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","ilovebunnies","itmo544db") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
