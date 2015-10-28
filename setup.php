@@ -7,7 +7,7 @@ $rds = new Aws\Rds\RdsClient([
 ]);
 
 $result = $rds->createDBInstance([
-    'AllocatedStorage' => 10,
+    'AllocatedStorage' => 5,
     #'AutoMinorVersionUpgrade' => true || false,
     #'AvailabilityZone' => '<string>',
     #'BackupRetentionPeriod' => <integer>,
