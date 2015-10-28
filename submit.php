@@ -31,7 +31,7 @@ $s3 = new Aws\S3\S3Client([
 ]);
 
 
-$bucket = uniqid("php-sb-",false);
+$bucket = uniqid("php-sb-",true);
 
 #$result = $client->createBucket(array(
 #    'Bucket' => $bucket
