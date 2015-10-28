@@ -71,19 +71,10 @@ $rds = new Aws\Rds\RdsClient([
 
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mp1-sb',
-    #'Filters' => [
-    #    [
-    #        'Name' => '<string>', // REQUIRED
-    #        'Values' => ['<string>', ...], // REQUIRED
-    #    ],
-        // ...
-   # ],
-   # 'Marker' => '<string>',
-   # 'MaxRecords' => <integer>,
 ]);
 
 
-$endpoint = $result['DBInstances'][0]['Endpoint']['Address']
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 #echo "============\n". $endpoint . "================";
 
 //echo "begin database";
