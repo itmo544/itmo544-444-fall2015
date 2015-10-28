@@ -15,7 +15,7 @@
 		
 		Email Address: <input type="email" name="useremail"><br />
 
-		Phone Number (1-XXX-XXX-XXXX): <input type="phone" name="phone">
+		Phone Number (1-XXX-XXX-XXXX): <input type="phone" name="userphone">
 			
 		<input type="submit" value="Send File" />
 	</form>
