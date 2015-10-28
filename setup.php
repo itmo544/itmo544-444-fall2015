@@ -5,6 +5,7 @@ $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
 ]);
+
 $result = $rds->createDBInstance([
     'AllocatedStorage' => 10,
     #'AutoMinorVersionUpgrade' => true || false,
@@ -14,7 +15,7 @@ $result = $rds->createDBInstance([
    # 'CopyTagsToSnapshot' => true || false,
    # 'DBClusterIdentifier' => '<string>',
     'DBInstanceClass' => 'db.t1.micro', // REQUIRED
-    'DBInstanceIdentifier' => 'mp1-sb', // REQUIRED
+    'DBInstanceIdentifier' => 'mp1-jrh', // REQUIRED
     'DBName' => 'customerrecords',
     #'DBParameterGroupName' => '<string>',
     #'DBSecurityGroups' => ['<string>', ...],
@@ -45,18 +46,30 @@ $result = $rds->createDBInstance([
     #'TdeCredentialPassword' => '<string>',
    # 'VpcSecurityGroupIds' => ['<string>', ...],
 ]);
+
 print "Create RDS DB results: \n";
 # print_r($rds);
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',
+
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-jrh',
 ]);
+
+
 // Create a table 
 $result = $rds->describeDBInstances([
-    'DBInstanceIdentifier' => 'mp1-sb',
+    'DBInstanceIdentifier' => 'mp1-jrh',
 ]);
+
+
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================\n";
+
+
+
 $link = mysqli_connect($endpoint,"controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
+
 echo "Here is the result: " . $link;
+
+
 $sql = "CREATE TABLE comments 
 (
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -64,7 +77,8 @@ PosterName VARCHAR(32),
 Title VARCHAR(32),
 Content VARCHAR(500)
 )";
-$con->query($sql);
-?>
 
+$con->query($sql);
+
+?>
 
