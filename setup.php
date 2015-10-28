@@ -45,7 +45,7 @@ echo "Here is the result: " . $link;
 #create table comments (rename comment to mp1-table)
 $sql = "CREATE TABLE mp1-table 
 (
-ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(20) NOT NULL,
 email VARCHAR(20) NOT NULL,
 phone VARCHAR(20)NOT NULL,
