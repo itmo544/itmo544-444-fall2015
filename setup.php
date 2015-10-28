@@ -42,13 +42,18 @@ $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or
 
 echo "Here is the result: " . $link;
 
-
-$sql = "CREATE TABLE comments 
+#create table comments (rename comment to mp1-table)
+$sql = "CREATE TABLE mp1-table 
 (
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-PosterName VARCHAR(32),
-Title VARCHAR(32),
-Content VARCHAR(500)
+uname VARCHAR(20) NOT NULL,
+email VARCHAR(20) NOT NULL,
+phone VARCHAR(20)NOT NULL,
+raws3url VARCHAR(256) NOT NULL,
+finisheds3url VARCHAR(256) NOT NULL,
+jpgfilename VARCHAR(256) NOT NULL,
+status INT NOT NULL,
+timestamp
 )";
 
 $con->query($sql);
