@@ -89,19 +89,20 @@ if (mysqli_connect_errno()) {
 
 
 /* Prepared statement, stage 1: prepare */
-if (!($stmt = $link->prepare("INSERT INTO items (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)"))) {
+if (!($stmt = $link->prepare("INSERT INTO mp1-table (id,uname,email,phone,s3rawurl,s3finishedurl,jpgfilename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) {
     echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
 
+$uname = $_POST['uname'];
 $email = $_POST['useremail'];
 $phone = $_POST['phone'];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
-$filename = basename($_FILES['userfile']['name']);
 $s3finishedurl = "none";
+$jpgfilename = basename($_FILES['userfile']['name']);
 $status =0;
 $issubscribed=0;
 
-$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
+$stmt->bind_param("ssssssi",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$filename,$status); // 6 strings & 1 integer ssssssi
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
@@ -112,7 +113,7 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 /* explicit close recommended */
 $stmt->close();
 
-$link->real_query("SELECT * FROM items");
+$link->real_query("SELECT * FROM mp1-table");
 $res = $link->use_result();
 
 echo "Result set order...\n";
