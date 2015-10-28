@@ -22,6 +22,7 @@ print_r($_FILES);
 
 print "</pre>";
 require 'vendor/autoload.php';
+
 #use Aws\S3\S3Client;
 #$client = S3Client::factory();
 $s3 = new Aws\S3\S3Client([
@@ -30,7 +31,7 @@ $s3 = new Aws\S3\S3Client([
 ]);
 
 
-$bucket = uniqid("php-jrh-",false);
+$bucket = uniqid("php-sb-",false);
 
 #$result = $client->createBucket(array(
 #    'Bucket' => $bucket
@@ -55,7 +56,7 @@ $result = $s3->createBucket([
 $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
-   'Key' => $uploadfile
+   'Key' => $uploadfile,
 ]);  
 
 
@@ -69,7 +70,7 @@ $rds = new Aws\Rds\RdsClient([
 
 
 $result = $rds->describeDBInstances([
-    'DBInstanceIdentifier' => 'mp1-jrh',
+    'DBInstanceIdentifier' => 'mp1-sb',
     #'Filters' => [
     #    [
     #        'Name' => '<string>', // REQUIRED
@@ -83,7 +84,7 @@ $result = $rds->describeDBInstances([
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address']
-    echo "============\n". $endpoint . "================";
+#echo "============\n". $endpoint . "================";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
