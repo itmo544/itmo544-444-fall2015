@@ -93,9 +93,9 @@ if (!($stmt = $link->prepare("INSERT INTO mp1-table (id,uname,email,phone,s3rawu
     echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
 
-$uname = $_POST['uname'];
+$uname = $_POST['username'];
 $email = $_POST['useremail'];
-$phone = $_POST['phone'];
+$phone = $_POST['userphone'];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
 $s3finishedurl = "none";
 $jpgfilename = basename($_FILES['userfile']['name']);
