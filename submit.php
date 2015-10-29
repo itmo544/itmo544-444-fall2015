@@ -27,7 +27,7 @@ require 'vendor/autoload.php';
 #$client = S3Client::factory();
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
-    'region'  => 'us-east-1'
+    'region'  => 'us-east-1',
 ]);
 
 
@@ -39,7 +39,7 @@ $bucket = uniqid("php-sb-",true);
 # AWS PHP SDK version 3 create bucket
 $result = $s3->createBucket([
     'ACL' => 'public-read',
-    'Bucket' => $bucket
+    'Bucket' => $bucket,
 ]);
 
 #$client->waitUntilBucketExists(array('Bucket' => $bucket));
@@ -65,7 +65,7 @@ echo $url;
 
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
-    'region'  => 'us-east-1'
+    'region'  => 'us-east-1',
 ]);
 
 
@@ -75,7 +75,7 @@ $result = $rds->describeDBInstances([
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-#echo "============\n". $endpoint . "================";
+echo "============\n". $endpoint . "================";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
@@ -117,7 +117,7 @@ $res = $link->use_result();
 
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+    echo $row['id'] . " " . $row['uname'] . " " . $row['email']. " " . $row['phone'];
 }
 
 
