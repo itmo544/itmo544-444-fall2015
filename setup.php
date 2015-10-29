@@ -3,11 +3,11 @@
 require 'vendor/autoload.php';
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
-    'region'  => 'us-east-1'
+    'region'  => 'us-east-1',
 ]);
 
 $result = $rds->createDBInstance([
-    'AllocatedStorage' => 5,
+    'AllocatedStorage' => 5, //MIN REQUIRED 5GB 
     'DBInstanceClass' => 'db.t1.micro', // REQUIRED
     'DBInstanceIdentifier' => 'mp1-sb', // REQUIRED
     'DBName' => 'customerrecords',
@@ -42,7 +42,7 @@ $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or
 
 echo "Here is the result: " . $link;
 
-#create table comments (rename comment to mp1-table)
+#create table comments (renamed table name from comment to mp1-table)
 $sql = "CREATE TABLE mp1-table 
 (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
