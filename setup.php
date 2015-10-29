@@ -38,7 +38,7 @@ $result = $rds->describeDBInstances([
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 
 
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link)); 
 
 echo "Here is the result: " . $link;
 
