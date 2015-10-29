@@ -42,8 +42,8 @@ $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or
 
 echo "Here is the result: " . $link;
 
-#create table comments (renamed table name from comment to mp1-table)
-$sql = "CREATE TABLE mp1-table 
+#create table comments (renamed table name from comment to items)
+$sql = "CREATE TABLE items 
 (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(20) NOT NULL,
