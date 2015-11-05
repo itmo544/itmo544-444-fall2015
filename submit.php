@@ -80,7 +80,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 #echo "============\n". $endpoint . "================";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords", 3306) or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint, "controller", "letmein888", "customerrecords", 3306) or die("Error " . mysqli_error($link));
 
 
 /* check connection */
