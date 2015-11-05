@@ -25,26 +25,25 @@ print_r($_FILES);
 print "</pre>";
 
 
-#use Aws\S3\S3Client;
-#$client = S3Client::factory();
+use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
     'region'  => 'us-east-1',
 ]);
 
 
-$bucket = uniqid("php-sb-",true);
+// Fixed bucket name and id
+#$bucket = uniqid("php-sb-",true);
+$bucket = 'php-sb';
 
-#$result = $client->createBucket(array(
-#    'Bucket' => $bucket
-#));
 # AWS PHP SDK version 3 create bucket
 $result = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
 ]);
 
-#$client->waitUntilBucketExists(array('Bucket' => $bucket));
+$s3->waitUntilBucketExists(array('Bucket' => $bucket));
+
 #Old PHP SDK version 2
 #$key = $uploadfile;
 #$result = $client->putObject(array(
@@ -54,11 +53,12 @@ $result = $s3->createBucket([
 #    'SourceFile' => $uploadfile 
 #));
 
-# PHP version 3
+// PHP version 3 for putting object in s3
 $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
-   'Key' => $uploadfile,
+    'Key' => $uploadfile,
+    'SourceFile' => $uploadfile,
 ]);  
 
 
@@ -77,20 +77,20 @@ $result = $rds->describeDBInstances([
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-#echo "============\n". $endpoint . "================";
+echo "============\n". $endpoint . "================";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint, "controller", "letmein888", "customerrecords") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint, "controller", "letmein888", "customerrecords", 3306) or die("Error " . mysqli_error($link));
 
 
-/* check connection */
+// check connection
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
 
 
-/* Prepared statement, stage 1: prepare */
+// Prepared statement, stage 1: prepare
 if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,jpgfilename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) {
     echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
@@ -111,7 +111,7 @@ if (!$stmt->execute()) {
 
 printf("%d Row inserted.\n", $stmt->affected_rows);
 
-/* explicit close recommended */
+// explicit close recommended
 $stmt->close();
 
 $link->real_query("SELECT * FROM items");
