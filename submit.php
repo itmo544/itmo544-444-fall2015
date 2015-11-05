@@ -5,6 +5,8 @@ session_start();
 // In PHP versions earlier than 4.1.0, $HTTP_POST_FILES should be used instead
 // of $_FILES.
 
+require 'vendor/autoload.php';
+
 echo $_POST['useremail'];
 
 $uploaddir = '/tmp/';
@@ -21,7 +23,7 @@ echo 'Here is some more debugging info:';
 print_r($_FILES);
 
 print "</pre>";
-require 'vendor/autoload.php';
+
 
 #use Aws\S3\S3Client;
 #$client = S3Client::factory();
@@ -78,7 +80,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 #echo "============\n". $endpoint . "================";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords", 3306) or die("Error " . mysqli_error($link));
 
 
 /* check connection */
