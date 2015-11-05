@@ -32,7 +32,7 @@ $s3 = new Aws\S3\S3Client([
 ]);
 
 
-// Fixed bucket name and id
+#Fixed bucket name and id
 #$bucket = uniqid("php-sb-",true);
 $bucket = 'php-sb';
 
@@ -42,7 +42,7 @@ $result = $s3->createBucket([
     'Bucket' => $bucket,
 ]);
 
-$s3->waitUntilBucketExists(array('Bucket' => $bucket));
+$s3->waitUntil(BucketExists', array('Bucket' => $bucket));
 
 #Old PHP SDK version 2
 #$key = $uploadfile;
@@ -77,7 +77,7 @@ $result = $rds->describeDBInstances([
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-echo "============\n". $endpoint . "================";
+#echo "============\n". $endpoint . "================";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint, "controller", "letmein888", "customerrecords", 3306) or die("Error " . mysqli_error($link));
