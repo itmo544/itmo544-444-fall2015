@@ -19,25 +19,19 @@ $result = $client->describeDBInstances(array(
     'DBInstanceIdentifier' => 'mp1-sb',
 ));
 
-$endpoint = "";
-
-foreach ($result->getPath('DBInstances/*/Endpoint/Address') as $ep) {
-    // Do something with the message
-    echo "============". $ep . "================";
-    $endpoint = $ep;
-}   
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
 
-/* check connection */
+// check connection
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
 
 //below line is unsafe - $email is not checked for SQL injection -- don't do this in real life or use an ORM instead
-$link->real_query("SELECT * FROM items WHERE email = '$email'");
-//$link->real_query("SELECT * FROM items");
+//$link->real_query("SELECT * FROM items WHERE email = '$email'");
+
+$link->real_query("SELECT * FROM items");
 
 $res = $link->use_result();
 echo "Result set order...\n";

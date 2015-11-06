@@ -2,9 +2,6 @@
 <?php
 // Start the session
 session_start();
-// In PHP versions earlier than 4.1.0, $HTTP_POST_FILES should be used instead
-// of $_FILES.
-
 require 'vendor/autoload.php';
 
 echo $_POST['useremail'];
@@ -21,7 +18,6 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
 
 echo 'Here is some more debugging info:';
 print_r($_FILES);
-
 print "</pre>";
 
 
@@ -32,7 +28,7 @@ $s3 = new Aws\S3\S3Client([
 ]);
 
 
-// Fixed bucket name and id
+// Fixed bucket name and id for now
 #$bucket = uniqid("php-sb-",true);
 $bucket = 'php-sb';
 
