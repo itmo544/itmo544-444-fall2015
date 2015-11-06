@@ -42,15 +42,7 @@ $result = $s3->createBucket([
     'Bucket' => $bucket,
 ]);
 
-#$s3->waitUntilBucketExists(array('Bucket' => $bucket));
-#Old PHP SDK version 2
-#$key = $uploadfile;
-#$result = $client->putObject(array(
-#    'ACL' => 'public-read',
-#    'Bucket' => $bucket,
-#    'Key' => $key,
-#    'SourceFile' => $uploadfile 
-#));
+$s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
 
 // PHP version 3 for putting object in s3
 $result = $s3->putObject([
@@ -120,10 +112,11 @@ $res = $link->use_result();
 
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . " " . $row['uname'] . " " . $row['email']. " " . $row['phone'];
+    echo $row['id'] . " " . $row['username'] . " " . $row['email']. " " . $row['phone'];
 }
 
 
 $link->close();
+header ('Location: gallery.php',true,303);
 
 ?>
