@@ -42,7 +42,7 @@ $link = mysqli_connect($endpoint, "controller", "letmein888", "customerrecords",
 echo "Here is the result: " . $link;
 
 #create table comments (renamed table name from comment to items)
-$sql = 'CREATE TABLE IF NOT EXISTS items 
+$sql = CREATE TABLE IF NOT EXISTS items 
 (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(20) NOT NULL,
@@ -53,7 +53,7 @@ s3finishedurl VARCHAR(256) NOT NULL,
 jpgfilename VARCHAR(256) NOT NULL,
 status TINYINT(3)CHECK(state IN(0,1,2)),
 date DATETIME DEFAULT CURRENT_TIMESTAMP,
-)';
+);
 
 $con->query($sql);
 
