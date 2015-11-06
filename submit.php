@@ -78,7 +78,8 @@ if (mysqli_connect_errno()) {
 
 // Prepared statement, stage 1: prepare
 if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,jpgfilename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) {
-    echo "Prepare failed: (" . $link->errno . ") " . $link->error;
+   printf("Prepare failed: (" . $link->errno . ") " . $link->error); 
+   #echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
 
 $uname = $_POST['username'];
@@ -104,12 +105,13 @@ $link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 
 echo "Result set order...\n";
+
 while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . " " . $row['username'] . " " . $row['email']. " " . $row['phone'];
+    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
 }
 
-
 $link->close();
+
 header('Location: gallery.php', true, 303);
 
 ?>

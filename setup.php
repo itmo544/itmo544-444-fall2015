@@ -23,7 +23,7 @@ $result = $rds->createDBInstance([
 ]);
 
 print "Create RDS DB results: \n";
-# print_r($rds);
+print_r($rds);
 
 $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',
 ]);
@@ -39,7 +39,8 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords","3306") or die("Error " . mysqli_error($link)); 
+echo "Here is the result: " . $link;
 
 // check connection
 if (mysqli_connect_errno()) {
@@ -48,20 +49,20 @@ if (mysqli_connect_errno()) {
 }
 
 #create table comments (renamed table name from comment to items)
-$sql = "CREATE TABLE IF NOT EXISTS items 
+$sql_table = CREATE TABLE items 
 (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-uname VARCHAR(20) NOT NULL,
-email VARCHAR(20) NOT NULL,
-phone VARCHAR(20) NOT NULL,
-s3rawurl VARCHAR(256) NOT NULL,
-s3finishedurl VARCHAR(256) NOT NULL,
-jpgfilename VARCHAR(256) NOT NULL,
+uname VARCHAR2(20) NOT NULL,
+email VARCHAR2(20) NOT NULL,
+phone VARCHAR2(20) NOT NULL,
+s3rawurl VARCHAR2(255) NOT NULL,
+s3finishedurl VARCHAR2(255) NOT NULL,
+jpgfilename VARCHAR2(255) NOT NULL,
 status TINYINT(3)CHECK(state IN(0,1,2)),
-date DATETIME DEFAULT CURRENT_TIMESTAMP
-)";
+tdate DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
-$con->query($sql);
+$con->query($sql_table);
 
 ?>
 
