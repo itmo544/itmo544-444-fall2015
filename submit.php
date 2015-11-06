@@ -117,6 +117,6 @@ while ($row = $res->fetch_assoc()) {
 
 
 $link->close();
-header ('Location: gallery.php',true,303);
+header('Location: gallery.php', true, 303);
 
 ?>
