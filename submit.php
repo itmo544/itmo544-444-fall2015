@@ -90,7 +90,7 @@ $s3finishedurl = "none";
 $jpgfilename = basename($_FILES['userfile']['name']);
 $status =0;
 
-$stmt->bind_param("ssssssi",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$filename,$status); // 6 strings & 1 integer ssssssi
+$stmt->bind_param("ssssssi",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$jpgfilename,$status); // 6 strings & 1 integer ssssssi
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
