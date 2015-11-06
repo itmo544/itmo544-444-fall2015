@@ -61,15 +61,13 @@ $rds = new Aws\Rds\RdsClient([
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mp1-sb',
 ]);
-print_r ($result);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print_r ($endpoint);
- print "============\n". $endpoint . "================";
+print "============\n". $endpoint . "================";
 
 
 //echo "begin database";
-$link = mysqli_connect($endpoint, "controller", "letmein888", "customerrecords", 3306) or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
 
 
 // check connection
