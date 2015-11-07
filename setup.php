@@ -49,7 +49,7 @@ if (mysqli_connect_errno()) {
 }
 
 #create table comments (renamed table name from comment to items)
-$sql_table = 'CREATE TABLE items 
+$sql_table = 'CREATE TABLE IF NOT EXISTS items 
 (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR2(20) NOT NULL,
