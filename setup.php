@@ -6,13 +6,14 @@ $rds = new Aws\Rds\RdsClient([
     'region'  => 'us-east-1',
 ]);
 
+//Create Database Instance
 $result = $rds->createDBInstance([
     'AllocatedStorage' => 5, //MIN REQUIRED 5GB 
     'DBInstanceClass' => 'db.t1.micro', // REQUIRED
     'DBInstanceIdentifier' => 'mp1-sb', // REQUIRED
     'DBName' => 'customerrecords',
     'Engine' => 'MySQL', // REQUIRED
-    'EngineVersion' => '5.5.41',
+    'EngineVersion' => '5.6.23', // Version 5.6 and up is Required for Read Replics
     'MasterUserPassword' => 'letmein888',
     'MasterUsername' => 'controller',
     'PubliclyAccessible' => true,
@@ -22,11 +23,10 @@ $result = $rds->createDBInstance([
     #'VpcSecurityGroupIds' => ['<string>', ...],
 ]);
 
-print "Create RDS DB results: \n";
+#Wait untill Database is created
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',]);
+print "RDS DB Successfully Created: \n";
 print_r($rds);
-
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',
-]);
 
 
 // Create a table 
@@ -64,5 +64,12 @@ tdate DATETIME DEFAULT CURRENT_TIMESTAMP
 
 $con->query($sql_table);
 
+#Create Read Replica 
+$rrresult = $rds->createDBInstanceReadReplica([
+	DBInstanceIdentifier => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
+	SourceDBInstanceIdentifier => 'mp1-sb', //DB instance name that will act as source 
+	PubliclyAccessible => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
+]);		
+	
 ?>
 
