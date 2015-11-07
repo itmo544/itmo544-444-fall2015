@@ -77,14 +77,14 @@ if (mysqli_connect_errno()) {
 
 
 // Prepared statement, stage 1: prepare
-if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,jpgfilename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) {
+if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) {
    printf("Prepare failed: (" . $link->errno . ") " . $link->error); 
    #echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
 
-$uname = $_POST['username'];
+$uname = $_POST['uname'];
 $email = $_POST['useremail'];
-$phone = $_POST['userphone'];
+$phone = $_POST['phone'];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
 $s3finishedurl = "none";
 $filename = basename($_FILES['userfile']['name']);
