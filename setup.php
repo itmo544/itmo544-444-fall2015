@@ -20,7 +20,7 @@ $result = $rds->createDBInstance([
     #'StorageEncrypted' => true || false,
     #'TdeCredentialArn' => '<string>',
     #'TdeCredentialPassword' => '<string>',
-    #'VpcSecurityGroupIds' => ['<string>', ...],
+    'VpcSecurityGroupIds' => 'sg-e30e4b84' #['<string>', ...],
 ]);
 
 #Wait untill Database is created
@@ -66,9 +66,9 @@ $con->query($sql_table);
 
 #Create Read Replica 
 $rrresult = $rds->createDBInstanceReadReplica([
-	DBInstanceIdentifier => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
-	SourceDBInstanceIdentifier => 'mp1-sb', //DB instance name that will act as source 
-	PubliclyAccessible => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
+	'DBInstanceIdentifier' => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
+	'SourceDBInstanceIdentifier' => 'mp1-sb', //DB instance name that will act as source 
+	'PubliclyAccessible' => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
 ]);		
 	
 ?>
