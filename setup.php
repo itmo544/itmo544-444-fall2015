@@ -15,7 +15,7 @@ $s3 = new Aws\S3\S3Client
 ]);
 
 //Create Database Instance
-$result = $rds->createDBInstance
+/*$result = $rds->createDBInstance
 ([
     'AllocatedStorage' => 5, //MIN REQUIRED 5GB 
     'DBInstanceClass' => 'db.t1.micro', // REQUIRED
@@ -31,7 +31,7 @@ $result = $rds->createDBInstance
     #'TdeCredentialPassword' => '<string>',
     #'VpcSecurityGroupIds' => 'sg-e30e4b84' #['<string>', ...],
 ]);
-
+*/
 #Create Read Replica - Golden Copy
 #$rrresult = $rds->createDBInstanceReadReplica
 #([
@@ -52,9 +52,8 @@ $result = $rds->describeDBInstances
     	'DBInstanceIdentifier' => 'mp1-sb',
 	]);
 
-
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-	print "============". $endpoint . "================";
+# print "============". $endpoint . "================";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
