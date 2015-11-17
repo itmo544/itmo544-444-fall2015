@@ -29,8 +29,8 @@ $s3 = new Aws\S3\S3Client([
 
 
 // Fixed bucket name and id for now
-#$bucket = uniqid("php-sb-",true);
-$bucket = 'php-sb';
+$bucket = uniqid("php-sb-",false);
+#$bucket = 'php-sb';
 
 # AWS PHP SDK version 3 create bucket
 $result = $s3->createBucket([
@@ -45,6 +45,7 @@ $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
     'Key' => $uploadfile,
+    'ContentType' => $_FILES['userfile']['tmp_name'],
     'SourceFile' => $uploadfile,
 ]);  
 
@@ -66,8 +67,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords","3306") or die("Error " . mysqli_error($link));
-
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
 
 // check connection
 if (mysqli_connect_errno()) {
@@ -75,6 +75,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
+echo "succssfully connected to database";
 
 // Prepared statement, stage 1: prepare
 if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) {
