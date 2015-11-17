@@ -59,14 +59,15 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
 
-# Need print statement here to make sure to get the result.
-# echo "Here is the result: " . $link;
+echo "Here is the result: " . $link;
 
 // check connection
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+
+echo "succssfully connected to database";
 
 #create table comments
 $sql = "CREATE TABLE items
@@ -84,7 +85,7 @@ $sql = "CREATE TABLE items
 
 $con->query($sql);
 
-	
+echo "table created";
 	
 ?>
 
