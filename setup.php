@@ -11,7 +11,7 @@ $rds = new Aws\Rds\RdsClient
 $s3 = new Aws\S3\S3Client
 ([
    	'version' => 'latest',
-   	'region'  => 'us-east-1'
+   	'region'  => 'us-east-1',
 ]);
 
 //Create Database Instance
@@ -72,19 +72,28 @@ if (mysqli_connect_errno()) {
 $sql = "CREATE TABLE items
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	uname VARCHAR2(20) NOT NULL,
-	email VARCHAR2(30) NOT NULL,
-	phone VARCHAR2(20) NOT NULL,
-	s3rawurl VARCHAR2(255) NOT NULL,
-	s3finishedurl VARCHAR2(255) NOT NULL,
-	jpgfilename VARCHAR2(255) NOT NULL,
-	status TINYINT(3)CHECK(state IN(0,1,2)),
-	date DATETIME DEFAULT CURRENT_TIMESTAMP
+	uname VARCHAR(20),
+	email VARCHAR(20),
+	phone VARCHAR(20),
+	filename VARCHAR(256),
+	s3rawurl VARCHAR(256),
+	s3finishedurl VARCHAR(256),
+	state TINYINT(3)CHECK(state IN(0,1,2)),
+	date DATETIME DEFAULT CURRENT_TIMESTAMP 
 )";
 
-$con->query($sql_table);
+#$sql = "CREATE TABLE items(
+#	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+#	uname VARCHAR2(20) NOT NULL,
+#	email VARCHAR2(30) NOT NULL,
+#	phone VARCHAR2(20) NOT NULL,
+#	s3rawurl VARCHAR2(255) NOT NULL,
+#	s3finishedurl VARCHAR2(255) NOT NULL,
+#	jpgfilename VARCHAR2(255) NOT NULL,
+#	status TINYINT(3)CHECK(state IN(0,1,2)),
+#	date DATETIME DEFAULT CURRENT_TIMESTAMP
+#)";
 
-	
-	
+$con->query($sql);
 ?>
 
