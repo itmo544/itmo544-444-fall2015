@@ -33,12 +33,12 @@ $result = $rds->createDBInstance
 ]);
 
 #Create Read Replica - Golden Copy
-$rrresult = $rds->createDBInstanceReadReplica
-([
-	'DBInstanceIdentifier' => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
-	'SourceDBInstanceIdentifier' => 'mp1-sb', //DB instance name that will act as source 
-	'PubliclyAccessible' => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
-]);	
+#$rrresult = $rds->createDBInstanceReadReplica
+#([
+#	'DBInstanceIdentifier' => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
+#	'SourceDBInstanceIdentifier' => 'mp1-sb', //DB instance name that will act as source 
+#	'PubliclyAccessible' => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
+#]);	
 
 #Wait untill Database is created
 #$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',]);
