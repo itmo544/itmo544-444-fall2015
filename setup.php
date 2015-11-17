@@ -68,8 +68,8 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-#create table items
-$sql = "CREATE TABLE jgldata
+#create table comments
+$sql = "CREATE TABLE items
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	uname VARCHAR2(20) NOT NULL,
