@@ -68,19 +68,19 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-#create table comments (renamed table name from comment to items)
-$sql = "CREATE TABLE items
+#create table items
+$sql = "CREATE TABLE jgldata
 (
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-uname VARCHAR2(20) NOT NULL,
-email VARCHAR2(30) NOT NULL,
-phone VARCHAR2(20) NOT NULL,
-s3rawurl VARCHAR2(255) NOT NULL,
-s3finishedurl VARCHAR2(255) NOT NULL,
-jpgfilename VARCHAR2(255) NOT NULL,
-status TINYINT(3)CHECK(state IN(0,1,2)),
-tdate DATETIME DEFAULT CURRENT_TIMESTAMP
-)';
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	uname VARCHAR2(20) NOT NULL,
+	email VARCHAR2(30) NOT NULL,
+	phone VARCHAR2(20) NOT NULL,
+	s3rawurl VARCHAR2(255) NOT NULL,
+	s3finishedurl VARCHAR2(255) NOT NULL,
+	jpgfilename VARCHAR2(255) NOT NULL,
+	status TINYINT(3)CHECK(state IN(0,1,2)),
+	date DATETIME DEFAULT CURRENT_TIMESTAMP
+)";
 
 $con->query($sql_table);
 
