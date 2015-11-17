@@ -24,23 +24,24 @@ $result = $rds->createDBInstance([
 ]);
 
 #Wait untill Database is created
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',]);
-print "RDS DB Successfully Created: \n";
-print_r($rds);
+#$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',]);
+#print "RDS DB Successfully Created: \n";
+#print_r($rds);
 
 
 // Create a table 
-$result = $rds->describeDBInstances([
-    'DBInstanceIdentifier' => 'mp1-sb',
-]);
+$result = $rds->describeDBInstances
+	([
+    	'DBInstanceIdentifier' => 'mp1-sb',
+	]);
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "============\n". $endpoint . "================";
+	print "============\n". $endpoint . "================";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords","3306") or die("Error " . mysqli_error($link)); 
-echo "Here is the result: " . $link;
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
+	echo "Here is the result: " . $link;
 
 // check connection
 if (mysqli_connect_errno()) {
