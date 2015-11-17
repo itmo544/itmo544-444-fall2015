@@ -1,4 +1,6 @@
 <?php
+/*
+
 // Start the session
 require 'vendor/autoload.php';
 
@@ -13,6 +15,8 @@ $s3 = new Aws\S3\S3Client
    	'version' => 'latest',
    	'region'  => 'us-east-1'
 ]);
+
+*/
 
 //Create Database Instance
 /*$result = $rds->createDBInstance
@@ -31,21 +35,23 @@ $s3 = new Aws\S3\S3Client
     #'TdeCredentialPassword' => '<string>',
     #'VpcSecurityGroupIds' => 'sg-e30e4b84' #['<string>', ...],
 ]);
-*/
+
 #Create Read Replica - Golden Copy
-#$rrresult = $rds->createDBInstanceReadReplica
-#([
-#	'DBInstanceIdentifier' => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
-#	'SourceDBInstanceIdentifier' => 'mp1-sb', //DB instance name that will act as source 
-#	'PubliclyAccessible' => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
-#]);	
+$rrresult = $rds->createDBInstanceReadReplica
+([
+	'DBInstanceIdentifier' => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
+	'SourceDBInstanceIdentifier' => 'mp1-sb', //DB instance name that will act as source 
+	'PubliclyAccessible' => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
+]);	
+*/
+
 
 #Wait untill Database is created
 #$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',]);
 #print "RDS DB Successfully Created: \n";
 #print_r($rds);
 
-
+/*
 // Create a table 
 $result = $rds->describeDBInstances
 	([
@@ -53,12 +59,14 @@ $result = $rds->describeDBInstances
 	]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-# print "============". $endpoint . "================";
+print "============\n". $endpoint . "================\n";
+
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
 
 echo "Here is the result: " . $link;
+
 
 // check connection
 if (mysqli_connect_errno()) {
@@ -85,6 +93,6 @@ $sql = "CREATE TABLE items
 $con->query($sql);
 
 echo "table created";
-	
+*/	
 ?>
 
