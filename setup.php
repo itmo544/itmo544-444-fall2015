@@ -1,13 +1,22 @@
 <?php
-// Start the session^M
+// Start the session
 require 'vendor/autoload.php';
-$rds = new Aws\Rds\RdsClient([
-    'version' => 'latest',
-    'region'  => 'us-east-1',
+
+$rds = new Aws\Rds\RdsClient
+([
+   	'version' => 'latest',
+   	'region'  => 'us-east-1',
+]);
+
+$s3 = new Aws\S3\S3Client
+([
+   	'version' => 'latest',
+   	'region'  => 'us-east-1'
 ]);
 
 //Create Database Instance
-$result = $rds->createDBInstance([
+$result = $rds->createDBInstance
+([
     'AllocatedStorage' => 5, //MIN REQUIRED 5GB 
     'DBInstanceClass' => 'db.t1.micro', // REQUIRED
     'DBInstanceIdentifier' => 'mp1-sb', // REQUIRED
@@ -20,8 +29,16 @@ $result = $rds->createDBInstance([
     #'StorageEncrypted' => true || false,
     #'TdeCredentialArn' => '<string>',
     #'TdeCredentialPassword' => '<string>',
-    'VpcSecurityGroupIds' => 'sg-e30e4b84' #['<string>', ...],
+    #'VpcSecurityGroupIds' => 'sg-e30e4b84' #['<string>', ...],
 ]);
+
+#Create Read Replica - Golden Copy
+$rrresult = $rds->createDBInstanceReadReplica
+([
+	'DBInstanceIdentifier' => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
+	'SourceDBInstanceIdentifier' => 'mp1-sb', //DB instance name that will act as source 
+	'PubliclyAccessible' => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
+]);	
 
 #Wait untill Database is created
 #$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-sb',]);
@@ -41,7 +58,9 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
-	echo "Here is the result: " . $link;
+
+# Need print statement here to make sure to get the result.
+# echo "Here is the result: " . $link;
 
 // check connection
 if (mysqli_connect_errno()) {
@@ -50,7 +69,7 @@ if (mysqli_connect_errno()) {
 }
 
 #create table comments (renamed table name from comment to items)
-$sql_table = 'CREATE TABLE IF NOT EXISTS items 
+$sql = "CREATE TABLE items
 (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR2(20) NOT NULL,
@@ -65,12 +84,7 @@ tdate DATETIME DEFAULT CURRENT_TIMESTAMP
 
 $con->query($sql_table);
 
-#Create Read Replica 
-$rrresult = $rds->createDBInstanceReadReplica([
-	'DBInstanceIdentifier' => 'mp1-sb-rr', //Unique Name to identify RR DB Instance
-	'SourceDBInstanceIdentifier' => 'mp1-sb', //DB instance name that will act as source 
-	'PubliclyAccessible' => true, //true specifies an Internet-facing instance with a publicly resolvable DNS name
-]);		
+	
 	
 ?>
 
