@@ -9,6 +9,10 @@ $email = $_POST["email"];
 echo $email;
 require 'vendor/autoload.php';
 
+//TESTING THESE TWO ECHO STATEMENTS
+echo $_POST['useremail'];
+echo $_POST['userfile']['tmp_name'];
+
 #New Rds Code
 use Aws\Rds\RdsClient;
 $rds = new Aws\Rds\RdsClient([
