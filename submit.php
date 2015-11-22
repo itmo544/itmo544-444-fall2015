@@ -122,7 +122,7 @@ while ($row = $res->fetch_assoc())
 
 
 //CREATE SNS TOPIC
-
+use Aws\Sns\SnsClient;
 $sns = new Aws\Sns\SnsClient
 ([
 	'version' => 'latest',
