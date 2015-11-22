@@ -11,14 +11,11 @@
 		<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
 
 		<!-- Name of input element determines name in $_FILES array -->
-		Add JPG File: <input name="userfile" type="file" /><br />
-		
-		Name: <input type="text" name="uname"><br />
-
+		Name: <input type="text" name="uname"><br />		
 		Email Address: <input type="email" name="useremail"><br />
-
-		Phone Number (1-XXX-XXX-XXXX): <input type="phone" name="phone">
-			
+		Phone Number (16309995555): <input type="phone" name="phone">
+		Browse File: <input name="userfile" type="file" /><br />
+				
 		<input type="submit" value="Send File" />
 	</form>
 	<hr />
