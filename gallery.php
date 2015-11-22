@@ -10,6 +10,7 @@ echo $email;
 require 'vendor/autoload.php';
 
 #New Rds Code
+use Aws\Rds\RdsClient;
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1',
@@ -19,8 +20,11 @@ $result = $client->describeDBInstances(array(
     'DBInstanceIdentifier' => 'mp1-sb',
 ));
 
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+#print "============". $endpoint . "================";
+
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
 
 // check connection
 if (mysqli_connect_errno()) {
@@ -29,9 +33,8 @@ if (mysqli_connect_errno()) {
 }
 
 //below line is unsafe - $email is not checked for SQL injection -- don't do this in real life or use an ORM instead
-//$link->real_query("SELECT * FROM items WHERE email = '$email'");
-
-$link->real_query("SELECT * FROM items");
+$link->real_query("SELECT * FROM items WHERE email = '$email'");
+#$link->real_query("SELECT * FROM items");
 
 $res = $link->use_result();
 echo "Result set order...\n";
