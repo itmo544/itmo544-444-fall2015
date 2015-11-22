@@ -72,10 +72,10 @@ $result = $rds->describeDBInstances
     ]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-#print "============". $endpoint . "================";
+print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
 
 // check connection
 if (mysqli_connect_errno()) 
@@ -168,17 +168,6 @@ $result = $sns->subscribe
 //PUBLISH
 $result = $sns->publish([
     'Message' => 'Congratulations, you sucessfully subscribed', // REQUIRED
-    #'MessageAttributes' => [
-    #   '<String>' => [
-    #       'BinaryValue' => <Psr\Http\Message\StreamableInterface>,
-    #       'DataType' => '<string>', // REQUIRED
-    #       'StringValue' => '<string>',
-        ],
-        // ...
-    ],
-    #'MessageStructure' => '<string>',
-    #'Subject' => '<string>',
-    #'TargetArn' => '<string>',
     'TopicArn' => $ARN,
 ]);
 
