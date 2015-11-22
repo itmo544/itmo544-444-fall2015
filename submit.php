@@ -145,6 +145,14 @@ $result = $sns->createTopic([
 echo $result;
 
 
+//DISPLAY NAME ATTRIBUTES
+
+$result = $client->setTopicAttributes([
+    'AttributeName' => 'DisplayName', // REQUIRED
+    'AttributeValue' => 'mp2',
+    'TopicArn' => $arn, // REQUIRED
+]);
+
 
 
 
