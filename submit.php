@@ -90,11 +90,6 @@ if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s
          echo "Prepare failed: (" . $link->errno . ") " . $link->error;
     }
 
-#if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) {
-   #printf("Prepare failed: (" . $link->errno . ") " . $link->error); 
-   #echo "Prepare failed: (" . $link->errno . ") " . $link->error;
-#}
-
 $uname = $_POST['uname'];
 $email = $_POST['useremail'];
 $phone = $_POST['phone'];
@@ -147,12 +142,23 @@ echo $result;
 
 //DISPLAY NAME ATTRIBUTES
 
-$result = $client->setTopicAttributes([
+$ARN = $result['TopicArn'];
+$result = $client->setTopicAttributes
+([
     'AttributeName' => 'DisplayName', // REQUIRED
     'AttributeValue' => 'mp2',
-    'TopicArn' => $arn, // REQUIRED
+    'TopicArn' => $ARN, // REQUIRED
 ]);
 
+
+//SUBSCRIBE
+
+$result = $sns->subscribe
+([
+    'Endpoint' => $phone,
+    'Protocol' => 'sms', // REQUIRED
+    'TopicArn' => $ARN, // REQUIRED
+]);
 
 
 
