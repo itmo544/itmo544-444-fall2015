@@ -150,6 +150,10 @@ $result = $client->setTopicAttributes
     'TopicArn' => $ARN, // REQUIRED
 ]);
 
+//WAIT FOR PENDING SUBSCRIPTION
+
+#NEED CODE
+
 
 //SUBSCRIBE
 
@@ -161,38 +165,22 @@ $result = $sns->subscribe
 ]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//PUBLISH
+$result = $sns->publish([
+    'Message' => 'Congratulations, you sucessfully subscribed', // REQUIRED
+    #'MessageAttributes' => [
+    #   '<String>' => [
+    #       'BinaryValue' => <Psr\Http\Message\StreamableInterface>,
+    #       'DataType' => '<string>', // REQUIRED
+    #       'StringValue' => '<string>',
+        ],
+        // ...
+    ],
+    #'MessageStructure' => '<string>',
+    #'Subject' => '<string>',
+    #'TargetArn' => '<string>',
+    'TopicArn' => $ARN,
+]);
 
 
 $link->close();
