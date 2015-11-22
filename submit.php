@@ -150,9 +150,9 @@ $result = $client->setTopicAttributes
     'TopicArn' => $ARN, // REQUIRED
 ]);
 
-//WAIT FOR PENDING SUBSCRIPTION
-
-#NEED CODE
+//WAIT FOR PENDING SUBSCRIPTION - SLEEP FOR 30 SECONDS
+echo "Wait 30 seconds for Pending Confirmation";
+sleep(30);
 
 
 //SUBSCRIBE
@@ -185,6 +185,6 @@ $result = $sns->publish([
 
 $link->close();
 
-header ('Location: gallery.php');
+header('Location: gallery.php', true, 303);
 
 ?>
