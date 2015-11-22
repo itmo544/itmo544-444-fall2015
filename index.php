@@ -13,11 +13,11 @@
 		<!-- Name of input element determines name in $_FILES array -->
 		Add JPG File: <input name="userfile" type="file" /><br />
 		
-		Name: <input type="text" name="username"><br />
+		Name: <input type="text" name="uname"><br />
 
 		Email Address: <input type="email" name="useremail"><br />
 
-		Phone Number (1-XXX-XXX-XXXX): <input type="phone" name="userphone">
+		Phone Number (1-XXX-XXX-XXXX): <input type="phone" name="phone">
 			
 		<input type="submit" value="Send File" />
 	</form>
