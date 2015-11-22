@@ -2,9 +2,8 @@
 <?php
 // Start the session
 session_start();
-require 'vendor/autoload.php';
+echo $_POST['useremail'];
 
-#echo $_POST['useremail'];
 
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
@@ -23,7 +22,7 @@ echo 'Here is some more debugging info:';
 print_r($_FILES);
 print "</pre>";
 
-
+require 'vendor/autoload.php';
 use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client
     ([
@@ -172,6 +171,6 @@ $result = $sns->publish
 
 $link->close();
 
-header('Location: gallery.php', true, 303);
+#header('Location: gallery.php', true, 303);
 
 ?>
