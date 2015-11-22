@@ -165,7 +165,7 @@ sleep(30);
 
 //PUBLISH
 $result = $sns->publish([
-    'Message' => 'Congratulations!! You sucessfully subscribed', // REQUIRED
+    'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
     'TopicArn' => $ARN,
 ]);
 
