@@ -160,8 +160,8 @@ $result = $sns->subscribe
 ]);
 
 //WAIT FOR PENDING SUBSCRIPTION - SLEEP FOR 30 SECONDS
-echo "Wait 60 seconds for Pending Confirmation";
-sleep(60);
+echo "Wait 30 seconds for Pending Confirmation";
+sleep(30);
 
 //PUBLISH
 $result = $sns->publish([
