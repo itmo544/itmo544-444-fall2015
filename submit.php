@@ -4,7 +4,7 @@
 session_start();
 require 'vendor/autoload.php';
 
-echo $_POST['useremail'];
+#echo $_POST['useremail'];
 
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
@@ -160,12 +160,12 @@ $result = $sns->subscribe
 ]);
 
 //WAIT FOR PENDING SUBSCRIPTION - SLEEP FOR 30 SECONDS
-echo "Wait 30 seconds for Pending Confirmation";
-sleep(30);
+echo "Wait 60 seconds for Pending Confirmation";
+sleep(60);
 
 //PUBLISH
 $result = $sns->publish([
-    'Message' => 'Congratulations, you sucessfully subscribed', // REQUIRED
+    'Message' => 'Congratulations!! You sucessfully subscribed', // REQUIRED
     'TopicArn' => $ARN,
 ]);
 
