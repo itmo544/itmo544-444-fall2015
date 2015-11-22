@@ -150,11 +150,6 @@ $result = $sns->setTopicAttributes
     'TopicArn' => $ARN, // REQUIRED
 ]);
 
-//WAIT FOR PENDING SUBSCRIPTION - SLEEP FOR 30 SECONDS
-echo "Wait 30 seconds for Pending Confirmation";
-sleep(30);
-
-
 //SUBSCRIBE
 
 $result = $sns->subscribe
@@ -164,13 +159,15 @@ $result = $sns->subscribe
     'TopicArn' => $ARN, // REQUIRED
 ]);
 
+//WAIT FOR PENDING SUBSCRIPTION - SLEEP FOR 30 SECONDS
+echo "Wait 30 seconds for Pending Confirmation";
+sleep(30);
 
 //PUBLISH
 $result = $sns->publish([
     'Message' => 'Congratulations, you sucessfully subscribed', // REQUIRED
     'TopicArn' => $ARN,
 ]);
-
 
 $link->close();
 
