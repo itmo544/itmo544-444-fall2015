@@ -164,7 +164,8 @@ echo "Wait 30 seconds for Pending Confirmation";
 sleep(30);
 
 //PUBLISH
-$result = $sns->publish([
+$result = $sns->publish
+([
     'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
     'TopicArn' => $ARN,
 ]);
