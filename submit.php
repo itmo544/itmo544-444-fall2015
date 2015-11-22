@@ -134,7 +134,7 @@ $sns = new Aws\Sns\SnsClient
 #]);
 
 $result = $sns->createTopic([
-	'Name' => 'mp2', //Required
+	'Name' => 'mp2web', //Required
 ]);
 
 echo $result;
@@ -143,10 +143,10 @@ echo $result;
 //DISPLAY NAME ATTRIBUTES
 
 $ARN = $result['TopicArn'];
-$result = $client->setTopicAttributes
+$result = $sns->setTopicAttributes
 ([
     'AttributeName' => 'DisplayName', // REQUIRED
-    'AttributeValue' => 'mp2',
+    'AttributeValue' => 'mp2web',
     'TopicArn' => $ARN, // REQUIRED
 ]);
 
