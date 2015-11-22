@@ -52,11 +52,11 @@ $result = $rds->describeDBInstances
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "\n============\n". $endpoint . "\n================\n";
+print "\n============\n" . $endpoint . "\n================\n";
 
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link)); 
 
 echo "Here is the result: " . $link;
 
