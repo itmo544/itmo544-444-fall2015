@@ -72,7 +72,7 @@ $result = $rds->describeDBInstances
     ]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-#print "============\n". $endpoint . "================";
+#print "============". $endpoint . "================";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
@@ -83,8 +83,6 @@ if (mysqli_connect_errno())
         printf("Connect failed: %s\n", mysqli_connect_error());
         exit();
     }
-
-echo "succssfully connected to database";
 
 // Prepared statement, stage 1: prepare
 if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) 
@@ -126,6 +124,62 @@ while ($row = $res->fetch_assoc())
     {
         echo $row['id'] . " " . $row['email']. " " . $row['phone'];
     }
+
+
+//CREATE SNS TOPIC
+
+$sns = new Aws\Sns\SnsClient
+([
+	'version' => 'latest',
+        'region' => 'us-east-1'
+]);
+
+#$result = $client->createTopic([
+#    'Name' => '<string>', // REQUIRED
+#]);
+
+$result = $sns->createTopic([
+	'Name' => 'mp2', //Required
+]);
+
+echo $result;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $link->close();
 
