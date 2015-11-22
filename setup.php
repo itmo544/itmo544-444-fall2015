@@ -60,14 +60,15 @@ $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or
 
 echo "Here is the result: " . $link;
 
-
+/*
 // check connection
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+*/
 
-echo "succssfully connected to database";
+echo "succssfully connected to database and now creating table";
 
 #create table items
 $sql = "CREATE TABLE IF NOT EXISTS items
@@ -83,7 +84,7 @@ $sql = "CREATE TABLE IF NOT EXISTS items
 	cdate DATETIME DEFAULT CURRENT_TIMESTAMP
 )";
 
-$con->query($sql);
+$link->query($sql);
 
 echo "table created";
 
