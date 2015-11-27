@@ -23,7 +23,7 @@ print_r($_FILES);
 print "</pre>";
 
 require 'vendor/autoload.php';
-use Aws\S3\S3Client;
+#use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client
     ([
         'version' => 'latest',
@@ -42,14 +42,14 @@ $result = $s3->createBucket
         'Bucket' => $bucket
     ]);
 
-$s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
+#$s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
 
 // PHP version 3 for putting object in s3
 $result = $s3->putObject([
         'ACL' => 'public-read',
         'Bucket' => $bucket,
         'Key' => $uploadfile,
-        'ContentType' => $_FILES['userfile']['tmp_name'],
+        #'ContentType' => $_FILES['userfile']['tmp_name'],
         'SourceFile' => $uploadfile
 ]);  
 
@@ -162,6 +162,7 @@ sleep(30);
 //PUBLISH
 $result = $sns->publish
 ([
+    'Subject' => 'Pictured Uploaded in S3 bucket',
     'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
     'TopicArn' => $ARN,
 ]);
