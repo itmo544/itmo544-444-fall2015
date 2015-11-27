@@ -89,12 +89,12 @@ if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s
          echo "Prepare failed: (" . $link->errno . ") " . $link->error;
     }
 
-$uname = $_POST['uname'];
 $email = $_POST['useremail'];
+$uname = $_POST['uname'];
 $phone = $_POST['phone'];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
-$s3finishedurl = "none";
 $filename = basename($_FILES['userfile']['name']);
+$s3finishedurl = "none";
 $status =0;
 
 $stmt->bind_param("ssssssi",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$filename,$status); // 6 strings & 1 integer ssssssi
