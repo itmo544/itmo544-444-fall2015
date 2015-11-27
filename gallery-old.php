@@ -17,7 +17,7 @@ echo $_POST['userfile']['tmp_name'];
 use Aws\Rds\RdsClient;
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
-    'region'  => 'us-east-1',
+    'region'  => 'us-east-1'
 ]);
 
 $result = $client->describeDBInstances(array(

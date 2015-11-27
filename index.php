@@ -12,7 +12,7 @@
 
 		<!-- Name of input element determines name in $_FILES array -->
 		Name: <input type="text" name="uname"><br />		
-		Email Address: <input type="email" name="email"><br />
+		Email Address: <input type="email" name="useremail"><br />
 		Phone Number (16309995555): <input type="phone" name="phone"><br />
 		Browse File: <input name="userfile" type="file" /><br />
 		<input type="submit" value="Send File" />

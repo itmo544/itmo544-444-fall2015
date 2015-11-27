@@ -105,17 +105,12 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 
 // explicit close recommended
 $stmt->close();
-
 $link->real_query("SELECT * FROM items");
 $res = $link->use_result();
-
 echo "Result set order...\n";
-
-while ($row = $res->fetch_assoc()) 
-    {
-        echo $row['id'] . " " . $row['email']. " " . $row['phone'];
-    }
-
+while ($row = $res->fetch_assoc()) {
+    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+}
 
 //CREATE SNS TOPIC
 use Aws\Sns\SnsClient;
@@ -162,9 +157,9 @@ sleep(30);
 //PUBLISH
 $result = $sns->publish
 ([
-    'Subject' => 'Pictured Uploaded in S3 bucket',
-    'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
-    'TopicArn' => $ARN,
+    	'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
+	'Subject' => 'Pictured Uploaded in S3 bucket',    
+	'TopicArn' => $ARN,
 ]);
 
 $link->close();
