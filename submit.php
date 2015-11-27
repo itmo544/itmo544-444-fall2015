@@ -2,7 +2,7 @@
 <?php
 // Start the session
 session_start();
-$useremail= $_POST["useremail"];
+$useremail = $_POST["useremail"];
 echo $useremail;
 
 $uploaddir = '/tmp/';
