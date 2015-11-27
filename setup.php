@@ -6,7 +6,7 @@ require 'vendor/autoload.php';
 $rds = new Aws\Rds\RdsClient
 ([
    	'version' => 'latest',
-   	'region'  => 'us-east-1',
+   	'region'  => 'us-east-1'
 ]);
 
 
@@ -58,7 +58,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link)); 
 
-#echo "Here is the result: " . $link;
+echo "Here is the result: " . $link;
 
 /*
 // check connection
@@ -73,7 +73,7 @@ echo "succssfully connected to database and now creating table";
 #create table items
 $sql = "CREATE TABLE IF NOT EXISTS items
 (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id INT NOT NULL AUTO_INCREMENT,
 	uname VARCHAR(20) NOT NULL,
 	email VARCHAR(30) NOT NULL,
 	phone VARCHAR(20) NOT NULL,
@@ -81,11 +81,12 @@ $sql = "CREATE TABLE IF NOT EXISTS items
 	s3finishedurl VARCHAR(255) NOT NULL,
 	filename VARCHAR(255) NOT NULL,
 	status TINYINT(3)CHECK(state IN(0,1,2)),
-	cdate DATETIME DEFAULT CURRENT_TIMESTAMP
+	cdate DATETIME DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(id)
 )";
 
 $link->query($sql);
-
+$link->close();
 echo "table created";
 
 #*/	
