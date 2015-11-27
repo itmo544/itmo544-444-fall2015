@@ -47,8 +47,8 @@ $link->real_query("SELECT * FROM items WHERE email = '$email'");
 $res = $link->use_result();
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
-echo $row['id'] . "Email: " . $row['email'];
+	echo $row['id'] . "Email: " . $row['email'];
+	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
 $link->close();
 ?>

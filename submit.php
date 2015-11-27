@@ -109,7 +109,8 @@ $link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+   	echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
 
 /*
