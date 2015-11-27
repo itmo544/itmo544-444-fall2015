@@ -171,6 +171,6 @@ $result = $sns->publish
 
 $link->close();
 
-#header('Location: gallery.php', true, 303);
+header('Location: gallery.php', true, 303);
 
 ?>
