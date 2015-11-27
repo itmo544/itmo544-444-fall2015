@@ -4,7 +4,7 @@
 </head>
 
 <body>
-<h1> Welcome to your Galler</h1>
+<h1> Welcome to your Gallery</h1>
 
 <?php
 session_start();
