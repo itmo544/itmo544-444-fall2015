@@ -1,18 +1,22 @@
 <html>
-<head><title>Gallery</title>
+<head>
+	<title>Gallery</title>
 </head>
+
 <body>
 
 <?php
 session_start();
+
 $email = $_POST["email"];
 echo $email;
+
 require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient;
 $client = RdsClient::factory(array(
 'version' => 'latest',
-'region
+'region' => 'us-east-1'
 ));
 
 $result = $client->describeDBInstances(array(

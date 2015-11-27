@@ -27,7 +27,7 @@ require 'vendor/autoload.php';
 $s3 = new Aws\S3\S3Client
     ([
         'version' => 'latest',
-        'region'  => 'us-east-1',
+        'region'  => 'us-east-1'
     ]);
 
 
@@ -39,7 +39,7 @@ $bucket = 'php-sb';
 $result = $s3->createBucket
     ([
         'ACL' => 'public-read',
-        'Bucket' => $bucket,
+        'Bucket' => $bucket
     ]);
 
 $s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
@@ -51,7 +51,7 @@ $result = $s3->putObject
         'Bucket' => $bucket,
         'Key' => $uploadfile,
         'ContentType' => $_FILES['userfile']['tmp_name'],
-        'SourceFile' => $uploadfile,
+        'SourceFile' => $uploadfile
     ]);  
 
 
@@ -61,7 +61,7 @@ echo $url;
 $rds = new Aws\Rds\RdsClient
     ([
         'version' => 'latest',
-        'region'  => 'us-east-1',
+        'region'  => 'us-east-1'
     ]);
 
 
