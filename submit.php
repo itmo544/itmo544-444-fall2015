@@ -112,6 +112,7 @@ while ($row = $res->fetch_assoc()) {
     echo $row['id'] . " " . $row['email']. " " . $row['phone'];
 }
 
+/*
 //CREATE SNS TOPIC
 use Aws\Sns\SnsClient;
 $sns = new Aws\Sns\SnsClient
@@ -161,6 +162,7 @@ $result = $sns->publish
 	'Subject' => 'Pictured Uploaded in S3 bucket',    
 	'TopicArn' => $ARN,
 ]);
+*/
 
 $link->close();
 header('Location: gallery.php');
