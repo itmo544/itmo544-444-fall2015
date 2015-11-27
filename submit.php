@@ -2,8 +2,8 @@
 <?php
 // Start the session
 session_start();
-echo $_POST['useremail'];
-
+$useremail= $_POST["useremail"];
+echo $useremail;
 
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
