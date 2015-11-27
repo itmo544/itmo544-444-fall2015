@@ -15,8 +15,8 @@ require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient;
 $client = RdsClient::factory(array(
-'version' => 'latest',
-'region' => 'us-east-1'
+	'version' => 'latest',
+	'region' => 'us-east-1'
 ));
 
 $result = $client->describeDBInstances(array(
@@ -46,11 +46,15 @@ if (mysqli_connect_errno()) {
 $link->real_query("SELECT * FROM items WHERE email = '$email'");
 #$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
+
 echo "Result set order...\n";
-while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
-echo $row['id'] . "Email: " . $row['email'];
+
+while ($row = $res->fetch_assoc()) 
+{
+	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
+	echo $row['id'] . "Email: " . $row['email'];
 }
+
 $link->close();
 ?>
 </body>

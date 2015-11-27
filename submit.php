@@ -23,7 +23,7 @@ print_r($_FILES);
 print "</pre>";
 
 require 'vendor/autoload.php';
-#use Aws\S3\S3Client;
+use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client
     ([
         'version' => 'latest',
@@ -45,30 +45,27 @@ $result = $s3->createBucket
 $s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
 
 // PHP version 3 for putting object in s3
-$result = $s3->putObject
-    ([
+$result = $s3->putObject([
         'ACL' => 'public-read',
         'Bucket' => $bucket,
         'Key' => $uploadfile,
         'ContentType' => $_FILES['userfile']['tmp_name'],
         'SourceFile' => $uploadfile
-    ]);  
+]);  
 
 
 $url = $result['ObjectURL'];
 echo $url;
 
-$rds = new Aws\Rds\RdsClient
-    ([
+$rds = new Aws\Rds\RdsClient([
         'version' => 'latest',
         'region'  => 'us-east-1'
-    ]);
+]);
 
 
-$result = $rds->describeDBInstances
-    ([
+$result = $rds->describeDBInstances([
         'DBInstanceIdentifier' => 'mp1-sb',
-    ]);
+]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "\n============\n" . $endpoint . "\n================\n";
