@@ -23,7 +23,7 @@ print_r($_FILES);
 print "</pre>";
 
 require 'vendor/autoload.php';
-use Aws\S3\S3Client;
+#use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client
     ([
         'version' => 'latest',
@@ -121,7 +121,7 @@ while ($row = $res->fetch_assoc())
 
 
 //CREATE SNS TOPIC
-#use Aws\Sns\SnsClient;
+use Aws\Sns\SnsClient;
 $sns = new Aws\Sns\SnsClient
 ([
 	'version' => 'latest',
