@@ -78,6 +78,7 @@ $images = new Imagick(glob('images/*.PNG'));
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
 $images->thumbnailImage(304,236);
+$images->setImageFormat ("png");
 $images->writeImages('images/out.png',false);
 
 //fixed bucket name
