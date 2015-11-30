@@ -50,7 +50,7 @@ $s3 = new Aws\S3\S3Client
     ]);
 
 
-// Fixed bucket name and id for now
+// Fixed bucket name
 #$bucket = uniqid("php-sb-",false);
 $bucket = 'php-sb';
 
@@ -163,7 +163,7 @@ while ($row = $res->fetch_assoc()) {
 	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
 
-/*
+
 //CREATE SNS TOPIC
 use Aws\Sns\SnsClient;
 $sns = new Aws\Sns\SnsClient
@@ -171,10 +171,6 @@ $sns = new Aws\Sns\SnsClient
 	'version' => 'latest',
         'region' => 'us-east-1'
 ]);
-
-#$result = $client->createTopic([
-#    'Name' => '<string>', // REQUIRED
-#]);
 
 $result = $sns->createTopic([
 	'Name' => 'mp2web', //Required
@@ -213,10 +209,9 @@ $result = $sns->publish
 	'Subject' => 'Pictured Uploaded in S3 bucket',    
 	'TopicArn' => $ARN,
 ]);
-*/
+
 
 $link->close();
 header('Location: gallery.php');
-#header('Location: gallery.php', true, 303);
 
 ?>
