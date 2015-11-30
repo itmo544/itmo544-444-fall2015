@@ -23,17 +23,6 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link)); 
 
-#echo "Here is the result: " . $link;
-
-/*
-// check connection
-if (mysqli_connect_errno()) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
-*/
-#echo "succssfully connected to database and now creating table";
-
 #create table items
 $sql = "CREATE TABLE IF NOT EXISTS items
 (
@@ -51,7 +40,5 @@ $sql = "CREATE TABLE IF NOT EXISTS items
 
 $link->query($sql);
 $link->close();
-#echo "table created";
-
 ?>
 
