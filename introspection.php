@@ -35,7 +35,7 @@ $result = $rds->describeDBInstances([
         'DBInstanceIdentifier' => 'mp1-sb',
 ]);
 
-print "\Here is Endpoint.\n";
+print "==Here is Endpoint==";
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "\n============\n" . $endpoint . "\n================\n";
 
@@ -52,7 +52,7 @@ $sqlcon="mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > 
 exec($sqlcon);
 
 print_r($_FILES);
-print "\nSuccessfully connected to databases, Now creating S3.\n";
+print "==Successfully connected to databases, now creating S3==";
 
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
@@ -67,7 +67,7 @@ $result = $s3->createBucket
         'Bucket' => $dbbucket
     ]);
 
-print "\nSuccessfully created S3, now putting objects in it.\n";
+print "==Successfully created S3, now putting objects in it==";
 
 // PHP version 3 for putting object in s3
 $result = $s3->putObject([
@@ -79,9 +79,9 @@ $result = $s3->putObject([
 
 //url
 $url = $result['ObjectURL'];
-print "\nCongratz, successfully created Database backup and successfully uploaded in s3 bucket.\n";
-print "\nHere is the link for database backup.\n"
-print_r ($url);
+print "==Congratz, successfully created Database backup and successfully uploaded in s3 bucket==";
+print "==nHere is the link for database backup==";
+echo $url;
 
 ?>
 </div>
