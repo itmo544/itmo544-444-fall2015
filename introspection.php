@@ -92,11 +92,9 @@ $result = $s3->putObject([
         'SourceFile' => $dbpath
 ]); 
 
-
+//url
+$url = $result['ObjectURL'];
 ?>
-
-
-
 </div>
 </body>
 </html>
