@@ -30,11 +30,11 @@ $result = $client->describeDBInstances(array(
 
 $endpoint = "";
 
-foreach ($result->getPath('DBInstances/*/Endpoint/Address') as $ep) {
-    // Do something with the message
-    echo "============". $ep . "================";
-    $endpoint = $ep;
-}   
+#foreach ($result->getPath('DBInstances/*/Endpoint/Address') as $ep) {
+#    // Do something with the message
+#    echo "============". $ep . "================";
+#    $endpoint = $ep;
+#}   
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 
