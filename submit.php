@@ -69,6 +69,7 @@ $result = $s3->putObject([
         'SourceFile' => $uploadfile
 ]);  
 
+/* Comment out for now until it's fixed
 
 //Image Magick
 $images = new Imagick(glob($uploadfile));
@@ -114,6 +115,7 @@ $rds = new Aws\Rds\RdsClient([
 ]);
 
 print "==End of Image Magic now resuming Other submit.php tasks==";
+*/
 
 $result = $rds->describeDBInstances([
         'DBInstanceIdentifier' => 'mp1-sb',
@@ -164,7 +166,6 @@ while ($row = $res->fetch_assoc()) {
    	echo $row['id'] . " " . $row['email']. " " . $row['phone'];
 	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
-
 
 //CREATE SNS TOPIC
 use Aws\Sns\SnsClient;
