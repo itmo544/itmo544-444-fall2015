@@ -2,9 +2,28 @@
 <?php
 // Start the session
 session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Submit.php</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+  <h3>Your EMail ID</h3>
+</div>
+</body>
+</html>
+
+<?php
 $useremail = $_POST["useremail"];
 echo $useremail;
-
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
@@ -52,6 +71,37 @@ $result = $s3->putObject([
         #'ContentType' => $_FILES['userfile']['tmp_name'],
         'SourceFile' => $uploadfile
 ]);  
+
+
+//Image Magick
+$images = new Imagick(glob('images/*.PNG'));
+
+// Providing 0 forces thumbnailImage to maintain aspect ratio
+$images->thumbnailImage(304,236);
+$images->writeImages('images/out.png',false);
+
+//fixed bucket name
+$imagickbucket = 'php-sb-imagic-';
+
+// create bucket for rendered images
+$result = $s3->createBucket
+    ([
+        'ACL' => 'public-read',
+        'Bucket' => $imagickbucket
+    ]);
+
+// Put rendered objects in s3
+$result = $s3->putObject([
+        'ACL' => 'public-read',
+        'Bucket' => $imagickbucket,
+        'Key' => "Rendered file:".$uploadfile,
+        #'ContentType' => $_FILES['userfile']['tmp_name'],
+        'SourceFile' => "images/out.png"
+]);
+
+//finished s3 url
+$finishedurl = $result['ObjectURL'];
+$finishedimgaeurl = $result['ObjectURL'];
 
 
 $url = $result['ObjectURL'];
