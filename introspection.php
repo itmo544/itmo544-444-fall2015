@@ -54,7 +54,7 @@ $uploaddir = '/tmp/DBbackup';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 $dbbackup = uniqid("php-sb-dbbackup",false);
 $dbpath = $uploaddir.dbbucket. '.' . sql;
-$sqlcon = "mysqldump --user=$dbuser --password$dbpass --host=$endpoint $dbname > $dbpath";
+$sqlcon = "mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > $dbpath";
 exec($sqlcon);
 
 echo '<pre>';
