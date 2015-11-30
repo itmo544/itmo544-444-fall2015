@@ -1,6 +1,6 @@
-<?php session_start(); ?>
-
+<?php session_start(); 
 #The following code borrowed from http://www.w3schools.com/bootstrap/bootstrap_get_started.asp
+?>
 
 <!DOCTYPE html>
 <html lang="en">
