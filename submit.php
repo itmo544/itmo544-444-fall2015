@@ -20,17 +20,20 @@ session_start();
 <?php
 #$useremail = $_POST["useremail"];
 #echo $useremail;
-echo $_POST['email']
+echo $_POST['email'];
 	
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
 echo '<pre>';
-if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-    echo "File is valid, and was successfully uploaded.\n";
-} else {
-    echo "Possible file upload attack!\n";
-}
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) 
+	{
+		echo "File is valid, and was successfully uploaded.\n";
+	} 
+	else 
+	{
+		echo "Possible file upload attack!\n";
+	}
 echo 'Here is some more debugging info:';
 print_r($_FILES);
 print "</pre>";
@@ -78,7 +81,7 @@ $images->writeImages('images/out.png',false);
 //fixed bucket name
 $imagickbucket = 'php-sb-imagick-';
 
-print "\nSetup for imagic completed, now creating S3 bucket\n";
+print "==Setup for imagic completed, now creating S3 bucket==";
 
 // create bucket for rendered images
 $result = $s3->createBucket
@@ -87,7 +90,7 @@ $result = $s3->createBucket
         'Bucket' => $imagickbucket
     ]);
 
-print "\nCreating S3 bucket, now putting obj in it\n";
+print "==Creating S3 bucket, now putting obj in it==";
 // Put rendered objects in s3
 $result = $s3->putObject([
         'ACL' => 'public-read',
@@ -102,7 +105,7 @@ $finishedurl = $result['ObjectURL'];
 $finishedimgaeurl = $result['ObjectURL'];
 
 $url = $result['ObjectURL'];
-print "\Successfully put object in s3, here is the URL\n";
+print "==Successfully put object in s3, here is the URL==";
 echo $url;
 
 $rds = new Aws\Rds\RdsClient([
@@ -110,7 +113,7 @@ $rds = new Aws\Rds\RdsClient([
         'region'  => 'us-east-1'
 ]);
 
-print "\End of Image Magic now resuming Other submit.php tasks\n";
+print "==End of Image Magic now resuming Other submit.php tasks==";
 
 $result = $rds->describeDBInstances([
         'DBInstanceIdentifier' => 'mp1-sb',
