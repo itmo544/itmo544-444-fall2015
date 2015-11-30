@@ -1,8 +1,8 @@
-<?php session_start(); 
-#The following code borrowed from http://www.w3schools.com/bootstrap/bootstrap_get_started.asp
+<?php 
+session_start(); 
+#html code source: http://www.w3schools.com/bootstrap/bootstrap_get_started.asp
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>ITMO544-444 Final Project</title>
@@ -39,12 +39,12 @@
 	Enter Email of user for gallery to browse: <input type="email" name="email">
 	<input type="submit" value="Load Gallery" />
 	</form>
+
+	<h4><li><a href="introspection.php">Click Here to Visit Introspection Page</a></li></h4>
+
 </div>
 </body>
 </html>
-
-<!--The above code borrowed from http://www.w3schools.com/bootstrap/bootstrap_get_started.asp-->
-
 
 
 
