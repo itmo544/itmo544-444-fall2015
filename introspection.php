@@ -82,12 +82,12 @@ $url = $result['ObjectURL'];
 ?>
 <h1>
 <?ph
-print "\nCongratz, Database backup successfully created and uploaded in s3 bucket<br />";
+print "\nCongratz, Database backup successfully created and uploaded in s3 bucket.<br />";
 ?>
 </h1>
 <h2>
 <?php
-print "\nHere is the link for database backup<br />";
+print "\nHere is the link of database backup directory<br />";
 echo $url;
 ?>
 </h2>
