@@ -35,9 +35,9 @@ $result = $rds->describeDBInstances([
         'DBInstanceIdentifier' => 'mp1-sb',
 ]);
 
-print "==Here is Endpoint==";
+#print "==Here is Endpoint==";
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "\n============\n" . $endpoint . "\n================\n";
+#print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link)); 
@@ -52,7 +52,7 @@ $sqlcon="mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > 
 exec($sqlcon);
 
 print_r($_FILES);
-print "==Successfully connected to databases, now creating S3==";
+#print "==Successfully connected to databases, now creating S3==";
 
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
@@ -67,7 +67,7 @@ $result = $s3->createBucket
         'Bucket' => $dbbucket
     ]);
 
-print "==Successfully created S3, now putting objects in it==";
+#print "==Successfully created S3, now putting objects in it==";
 
 // PHP version 3 for putting object in s3
 $result = $s3->putObject([
@@ -79,11 +79,22 @@ $result = $s3->putObject([
 
 //url
 $url = $result['ObjectURL'];
-print "==Congratz, successfully created Database backup and successfully uploaded in s3 bucket==";
-print "==nHere is the link for database backup==";
-echo $url;
-
 ?>
+<h1>
+<br>
+<?php
+print "==Congratz, Database backup successfully created and uploaded in s3 bucket==";
+?>
+</h1>
+</br>
+<h2>
+<br>
+<?php
+print "==Here is the link for database backup==";
+echo $url;
+?>
+</h2>
+</br>
 </div>
 </body>
 </html>
