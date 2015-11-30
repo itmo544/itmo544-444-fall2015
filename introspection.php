@@ -50,19 +50,8 @@ $dbpath=$uploaddir.$dbbucket. '.' . 'sql';
 $sqlcon="mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > $dbpath";
 exec($sqlcon);
 
-echo '<pre>';
-if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) 
-    {
-        echo "File is valid, and was successfully uploaded.\n";
-    } 
-    else 
-    {
-        echo "Possible file upload attack!\n";
-    }
-
-echo 'Here is some more debugging info:';
 print_r($_FILES);
-print "</pre>";
+print "Successfully connected to databases, Now creating S3";
 
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
@@ -77,6 +66,8 @@ $result = $s3->createBucket
         'Bucket' => $dbbucket
     ]);
 
+print "Successfully created S3, now putting objects in it";
+
 // PHP version 3 for putting object in s3
 $result = $s3->putObject([
         'ACL' => 'public-read',
@@ -87,6 +78,8 @@ $result = $s3->putObject([
 
 //url
 $url = $result['ObjectURL'];
+print_r ($url);
+
 ?>
 </div>
 </body>
