@@ -1,9 +1,8 @@
-
 <?php
 // Start the session
 session_start();
 ?>
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <title>Submit.php</title>
@@ -17,9 +16,6 @@ session_start();
 <body>
 <div class="container-fluid">
   <h3>Your EMail ID</h3>
-</div>
-</body>
-</html>
 
 <?php
 $useremail = $_POST["useremail"];
@@ -216,3 +212,6 @@ $link->close();
 header('Location: gallery.php');
 
 ?>
+</div>
+</body>
+</html>
