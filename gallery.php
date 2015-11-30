@@ -1,10 +1,17 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Gallery</title>
+  <title>Gallery</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-<h1> Welcome to your Gallery</h1>
+
+<div class="container-fluid">
+ <h1>Welcome to the Gallery</h1>
 
 <?php
 session_start();
@@ -52,5 +59,10 @@ while ($row = $res->fetch_assoc()) {
 }
 $link->close();
 ?>
+
+</div>
 </body>
 </html>
+
+<!--The above html code borrowed from http://www.w3schools.com/bootstrap/bootstrap_get_started.asp-->
+
