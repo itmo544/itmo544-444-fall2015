@@ -34,7 +34,7 @@ $rdsrr = new Aws\Rds\RdsClient
 ]);
 
 // describe instances
-$result = $rds->describeDBInstances
+$result = $rdsrr->describeDBInstances
 ([
 	'DBInstanceIdentifier' => 'mp1-sb',
 ]);
