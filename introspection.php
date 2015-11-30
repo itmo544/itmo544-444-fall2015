@@ -81,20 +81,17 @@ $result = $s3->putObject([
 $url = $result['ObjectURL'];
 ?>
 <h1>
-<br>
-<?php
-print "==Congratz, Database backup successfully created and uploaded in s3 bucket==";
+<?ph
+print "\nCongratz, Database backup successfully created and uploaded in s3 bucket<br />";
 ?>
 </h1>
-</br>
 <h2>
-<br>
 <?php
-print "==Here is the link for database backup==";
+print "\nHere is the link for database backup<br />";
 echo $url;
 ?>
 </h2>
-</br>
+<h4><li><a href="index.php">Click Here to go Back to previus page</a></li></h4>
 </div>
 </body>
 </html>
