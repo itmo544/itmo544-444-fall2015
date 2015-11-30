@@ -18,9 +18,9 @@ session_start();
   <h3>Your EMail ID</h3>
 
 <?php
-#$useremail = $_POST["useremail"];
-#echo $useremail;
-echo $_POST['email'];
+$useremail = $_POST["useremail"];
+echo $useremail;
+#echo $_POST['email'];
 	
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
@@ -40,7 +40,7 @@ print "</pre>";
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
+#use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client
     ([
         'version' => 'latest',
@@ -108,14 +108,12 @@ $finishedimgaeurl = $result['ObjectURL'];
 $url = $result['ObjectURL'];
 print "==Successfully put object in s3, here is the URL==";
 echo $url;
-
+print "==End of Image Magic now resuming Other submit.php tasks==";
+*/
 $rds = new Aws\Rds\RdsClient([
         'version' => 'latest',
         'region'  => 'us-east-1'
 ]);
-
-print "==End of Image Magic now resuming Other submit.php tasks==";
-*/
 
 $result = $rds->describeDBInstances([
         'DBInstanceIdentifier' => 'mp1-sb',
