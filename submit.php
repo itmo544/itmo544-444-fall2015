@@ -82,7 +82,7 @@ $images->setImageFormat ("png");
 $images->writeImages('images/out.png',false);
 
 //fixed bucket name
-$imagickbucket = 'php-sb-imagic-';
+$imagickbucket = 'php-sb-imagick-';
 
 // create bucket for rendered images
 $result = $s3->createBucket
