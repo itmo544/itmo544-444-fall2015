@@ -18,33 +18,31 @@ session_start();
   <h3>Your EMail ID</h3>
 
 <?php
-$useremail = $_POST["useremail"];
-echo $useremail;
+#$useremail = $_POST["useremail"];
+#echo $useremail;
+echo $_POST['email']
+	
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
 echo '<pre>';
-if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) 
-    {
-        echo "File is valid, and was successfully uploaded.\n";
-    } 
-    else 
-    {
-        echo "Possible file upload attack!\n";
-    }
-
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+    echo "File is valid, and was successfully uploaded.\n";
+} else {
+    echo "Possible file upload attack!\n";
+}
 echo 'Here is some more debugging info:';
 print_r($_FILES);
 print "</pre>";
 
 require 'vendor/autoload.php';
-#use Aws\S3\S3Client;
+
+use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client
     ([
         'version' => 'latest',
         'region'  => 'us-east-1'
     ]);
-
 
 // Fixed bucket name
 #$bucket = uniqid("php-sb-",false);
@@ -70,15 +68,17 @@ $result = $s3->putObject([
 
 
 //Image Magick
-$images = new Imagick(glob('images/*.PNG'));
+$images = new Imagick(glob($uploadfile));
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
 $images->thumbnailImage(1024,0);
-$images->setImageFormat ("png");
+#$images->setImageFormat ("png");
 $images->writeImages('images/out.png',false);
 
 //fixed bucket name
 $imagickbucket = 'php-sb-imagick-';
+
+print "\nSetup for imagic completed, now creating S3 bucket\n";
 
 // create bucket for rendered images
 $result = $s3->createBucket
@@ -87,6 +87,7 @@ $result = $s3->createBucket
         'Bucket' => $imagickbucket
     ]);
 
+print "\nCreating S3 bucket, now putting obj in it\n";
 // Put rendered objects in s3
 $result = $s3->putObject([
         'ACL' => 'public-read',
@@ -100,8 +101,8 @@ $result = $s3->putObject([
 $finishedurl = $result['ObjectURL'];
 $finishedimgaeurl = $result['ObjectURL'];
 
-
 $url = $result['ObjectURL'];
+print "\Successfully put object in s3, here is the URL\n";
 echo $url;
 
 $rds = new Aws\Rds\RdsClient([
@@ -109,6 +110,7 @@ $rds = new Aws\Rds\RdsClient([
         'region'  => 'us-east-1'
 ]);
 
+print "\End of Image Magic now resuming Other submit.php tasks\n";
 
 $result = $rds->describeDBInstances([
         'DBInstanceIdentifier' => 'mp1-sb',
