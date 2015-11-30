@@ -19,24 +19,17 @@ echo $email;
 require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient;
-$client = RdsClient::factory(array(
-	'version' => 'latest',
-	'region' => 'us-east-1'
-));
+$rds = new Aws\Rds\RdsClient([
+        'version' => 'latest',
+        'region'  => 'us-east-1'
+]);
 
-$result = $client->describeDBInstances(array(
-    'DBInstanceIdentifier' => 'mp1-sb',
-));
-
+$result = $rds->describeDBInstances([
+        'DBInstanceIdentifier' => 'mp1-sb',
+]);
 $endpoint = "";
-
-#foreach ($result->getPath('DBInstances/*/Endpoint/Address') as $ep) {
-#    // Do something with the message
-#    echo "============". $ep . "================";
-#    $endpoint = $ep;
-#}   
-
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
