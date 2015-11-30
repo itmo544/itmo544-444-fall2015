@@ -73,7 +73,7 @@ $result = $s3->putObject([
 $images = new Imagick(glob('images/*.PNG'));
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
-$images->thumbnailImage(304,236);
+$images->thumbnailImage(1024,0);
 $images->setImageFormat ("png");
 $images->writeImages('images/out.png',false);
 
