@@ -26,35 +26,28 @@ $dbuser = 'controller';
 $dbpass = 'letmein888';
 $dbname = 'customerrecords';
 
-use Aws\Rds\RdsClient;
-$rdsrr = new Aws\Rds\RdsClient
-([
-   	'version' => 'latest',
-   	'region'  => 'us-east-1'
+$rds = new Aws\Rds\RdsClient([
+        'version' => 'latest',
+        'region'  => 'us-east-1'
 ]);
 
-// describe instances
-$result = $rdsrr->describeDBInstances
-([
-	'DBInstanceIdentifier' => 'mp1-sb',
+$result = $rds->describeDBInstances([
+        'DBInstanceIdentifier' => 'mp1-sb',
 ]);
-
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-#print "\n================\n" . $endpoint . "\n================\n";
-
+print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link)); 
-
 
 //s3 - call variables
 
 $uploaddir = '/tmp/DBbackup';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 $dbbackup = uniqid("php-sb-dbbackup",false);
-$dbpath = $uploaddir.dbbucket. '.' . sql;
-$sqlcon = "mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > $dbpath";
+$dbpath=$uploaddir.$dbbucket. '.' . 'sql';
+$sqlcon="mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > $dbpath";
 exec($sqlcon);
 
 echo '<pre>';
