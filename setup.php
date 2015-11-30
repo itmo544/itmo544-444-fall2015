@@ -2,7 +2,6 @@
 
 // Start the session
 require 'vendor/autoload.php';
-
 $rds = new Aws\Rds\RdsClient
 ([
    	'version' => 'latest',
@@ -10,14 +9,12 @@ $rds = new Aws\Rds\RdsClient
 ]);
 
 // Create a table 
-$result = $rds->describeDBInstances
-([
+$result = $rds->describeDBInstances([
 	'DBInstanceIdentifier' => 'mp1-sb',
 ]);
 
-
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-#print "\n================\n" . $endpoint . "\n================\n";
+print "\n================\n" . $endpoint . "\n================\n";
 
 
 //echo "begin database";
