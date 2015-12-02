@@ -75,7 +75,7 @@ echo $url;
 
 //Image Magick
 print "==Imagick starting..==";
-$image = new Imagick($uploadfile));
+$image = new Imagick($uploadfile);
 
 print "==Creating Variables==";
 
@@ -96,7 +96,7 @@ $result = $s3->createBucket
     ]);
 */
 
-print "==Created S3 bucket, now putting obj in it==";
+print "==Creat S3 bucket, now putting obj in it==";
 
 // Put rendered objects in s3
 $result = $s3->putObject([
