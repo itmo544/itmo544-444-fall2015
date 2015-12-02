@@ -18,7 +18,6 @@ session_start();
   <h3>Your EMail ID</h3>
 
 <?php
-require 'vendor/autoload.php';
 #useremail = $_POST["useremail"];
 #echo $useremail;
 echo $_POST['email'];
@@ -36,7 +35,8 @@ echo 'Here is some more debugging info:';
 print_r($_FILES);
 print "</pre>"
 
-#use Aws\S3\S3Client;
+require 'vendor/autoload.php';
+use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
     'region'  => 'us-east-1'
