@@ -116,12 +116,11 @@ print "============<br />" . $endpoint . "================<br />";
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
 
-// check connection
-if (mysqli_connect_errno()) 
-    {
-        printf("Connect failed: %s\n", mysqli_connect_error());
-        exit();
-    }
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
 
 // Prepared statement, stage 1: prepare
 if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) 
