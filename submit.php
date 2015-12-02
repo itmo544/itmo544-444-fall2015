@@ -72,10 +72,10 @@ $url = $result['ObjectURL'];
 echo $url;
 
 //Image Magick
-print "==Imagick starting..==";
+print "Imagick starting<br />";
 $imagemagick = new Imagick($uploadfile);
 
-print "==Creating Variables==";
+print "Creating Variables<br />";
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
 $imagemagick->thumbnailImage(800,600);
@@ -86,7 +86,7 @@ $imagemagick->writeImage($uploadfile);
 //fixed bucket name
 $imagickbucket = 'php-imagick-';
 
-print "==Setup for imagic completed, now creating S3 bucket==";
+print "Setup for imagic completed, now creating S3 bucket<br />";
 // create bucket for rendered images
 
 $result = $s3->createBucket([
@@ -94,7 +94,7 @@ $result = $s3->createBucket([
     'Bucket' => $imagickbucket
 ]);
 
-print "==Created S3 bucket, now putting obj in it==";
+print "Created S3 bucket, now putting obj in it<br />";
 
 // Put rendered objects in s3
 $result = $s3->putObject([
@@ -111,7 +111,7 @@ print "==Successfully put object in s3, here is the URL==";
 $imagickurl = $result['ObjectURL'];
 echo $imagickurl;
 
-print "==End of Image Magic now resuming Other submit.php tasks==";
+print "End of Image Magic now resuming Other submit.php tasks<br />";
 
 //Relational Database Connection
 $rds = new Aws\Rds\RdsClient([
@@ -124,17 +124,20 @@ $result = $rds->describeDBInstances([
 ]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "\n============\n" . $endpoint . "\n================\n";
+print "\n============\n" . $endpoint . "\n================\n<br />";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
 
-// check connection
+print "connection to database was sucessfull<br /";
+
+/*// check connection
 if (mysqli_connect_errno()) 
     {
         printf("Connect failed: %s\n", mysqli_connect_error());
         exit();
     }
+*/
 
 // Prepared statement, stage 1: prepare
 if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) 
@@ -142,21 +145,24 @@ if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s
          echo "Prepare failed: (" . $link->errno . ") " . $link->error;
     }
 
+print "prepare statement was sucessfull<br /";
+
 $email = $_POST['useremail'];
 $uname = $_POST['uname'];
 $phone = $_POST['phone'];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
 $filename = basename($_FILES['userfile']['name']);
-$s3finishedurl = "none";
+$s3finishedurl = $imagickurl;
 $status =0;
 
 $stmt->bind_param("ssssssi",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$filename,$status); // 6 strings & 1 integer ssssssi
 
-if (!$stmt->execute()) 
-    {
-        echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-    }
+print "bind statement was sucessfull<br /";
 
+$stmt->bind_param("sssssii",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$jpgfilename,$state);
+if (!$stmt->execute()) {
+    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+}
 printf("%d Row inserted.\n", $stmt->affected_rows);
 
 // explicit close recommended
@@ -165,8 +171,7 @@ $link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-   	echo $row['id'] . " " . $row['email']. " " . $row['phone'];
-	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
+    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
 }
 
 //CREATE SNS TOPIC
