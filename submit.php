@@ -97,19 +97,27 @@ $result = $s3->createBucket
 print "==Created S3 bucket, now putting obj in it==";
 
 // Put rendered objects in s3
-$result = $s3->putObject([
+$finishedresult = $s3->putObject([
         'ACL' => 'public-read',
         'Bucket' => $bucket,
         'Key' => $uploadfile,
         'ContentType' => $_FILES['userfile']['tmp_name'],
         'SourceFile' => "images/out.png"
 ]);
+$finishedresult = $s3->putObject([
+    'ACL' => 'public-read',
+    'Bucket' => $bucket,
+    'Key' => $uploadfile,
+    'ContentType' => $_FILES['userfile']['tmp_name'],
+    'SourceFile' => "images/out.png",
+]);
+
+print "==Successfully put object in s3, here is the URL==";
 
 //finished s3 url
 $finishedimageurl = $result['ObjectURL'];
 echo $finishedimageurl;
 
-print "==Successfully put object in s3, here is the URL==";
 print "==End of Image Magic now resuming Other submit.php tasks==";
 
 //Relational Database Connection
