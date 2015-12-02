@@ -41,33 +41,31 @@ print "</pre>";
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
-$s3 = new Aws\S3\S3Client
-    ([
-        'version' => 'latest',
-        'region'  => 'us-east-1'
-    ]);
+$s3 = new Aws\S3\S3Client([
+    'version' => 'latest',
+    'region'  => 'us-east-1'
+]);
 
 // Fixed bucket name
 #$bucket = uniqid("php-sb-",false);
 $bucket = 'php-sb';
 
 # AWS PHP SDK version 3 create bucket
-$result = $s3->createBucket
-    ([
-        'ACL' => 'public-read',
-        'Bucket' => $bucket
-    ]);
+$result = $s3->createBucket([
+    'ACL' => 'public-read',
+    'Bucket' => $bucket
+]);
 
-$s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
+$s3->waitUntil('BucketExists', array( 'Bucket'=> $bucket));
 
 // PHP version 3 for putting object in s3
 $result = $s3->putObject([
-        'ACL' => 'public-read',
-        'Bucket' => $bucket,
-        'Key' => $uploadfile,
-        #'ContentType' => $_FILES['userfile']['tmp_name'],
-        'SourceFile' => $uploadfile
-]);  
+    'ACL' => 'public-read',
+    'Bucket' => $bucket,
+    'Key' => $uploadfile,
+    #'ContentType' => $_FILES['userfile']['tmp_name'],
+    'SourceFile' => $uploadfile
+]); 
 
 //Object URL
 $url = $result['ObjectURL'];
@@ -75,14 +73,14 @@ echo $url;
 
 //Image Magick
 print "==Imagick starting..==";
-$image = new Imagick($uploadfile);
+$imagemagick = new Imagick($uploadfile);
 
 print "==Creating Variables==";
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
-$image-> thumbnailImage(200, null);
+$imagemagick->thumbnailImage(800,600);
 #$image->setImageFormat ("png");
-$image-> writeImages('images/out.png',false);
+$imagemagick->writeImage('images/out.png',false);
 
 /*
 //fixed bucket name
@@ -96,7 +94,7 @@ $result = $s3->createBucket
     ]);
 */
 
-print "==Creat S3 bucket, now putting obj in it==";
+print "==Created S3 bucket, now putting obj in it==";
 
 // Put rendered objects in s3
 $result = $s3->putObject([
@@ -109,7 +107,7 @@ $result = $s3->putObject([
 
 //finished s3 url
 $finishedimageurl = $result['ObjectURL'];
-echo $finishedimageurl
+echo $finishedimageurl;
 
 print "==Successfully put object in s3, here is the URL==";
 print "==End of Image Magic now resuming Other submit.php tasks==";
