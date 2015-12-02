@@ -45,7 +45,7 @@ $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",330
 
 $uploaddir = '/tmp';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-$dbbackup = uniqid("php-dbbackup-",false);
+$dbbackup = uniqid("-php-dbbackup-",false);
 $dbpath=$uploaddir.$dbbackup. '.' . 'sql';
 $sqlcon="mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > $dbpath";
 exec($sqlcon);
@@ -59,8 +59,8 @@ $s3 = new Aws\S3\S3Client([
 ]);
 
 # AWS PHP SDK version 3 create bucket
-#$dbbucket = uniqid("php-sb-dbbucket",false);
-$dbbucket = 'Database-Bucket';
+$dbbucket = uniqid("php-sb-dbbucket",false);
+#$dbbucket = 'Database-Bucket';
 $result = $s3->createBucket
     ([
         'ACL' => 'public-read',
