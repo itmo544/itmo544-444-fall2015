@@ -18,25 +18,28 @@ session_start();
   <h3>Your EMail ID</h3>
 
 <?php
+echo $_POST['email'];
 #useremail = $_POST["useremail"];
 #echo $useremail;
-echo $_POST['email'];
 	
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-
+ 
 echo '<pre>';
-if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-    echo "File is valid, and was successfully uploaded.\n";
-} else {
-    echo "Possible file upload attack!\n";
-}
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) 
+	{
+		echo "File is valid, and was successfully uploaded.\n";
+	} 
+	else 
+	{
+		echo "Possible file upload attack!\n";
+	}
 echo 'Here is some more debugging info:';
 print_r($_FILES);
-print "</pre>"
+print "</pre>";
 
 require 'vendor/autoload.php';
-
+ 
 use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
