@@ -36,6 +36,7 @@ print_r($_FILES);
 print "</pre>"
 
 require 'vendor/autoload.php';
+
 use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
@@ -111,7 +112,7 @@ $result = $rds->describeDBInstances([
 ]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "============<br />" . $endpoint . "================<br />";
+print "============/n" . $endpoint . "================/n";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
@@ -138,7 +139,7 @@ $status =0;
 
 $stmt->bind_param("ssssssi",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$filename,$status); // 6 strings & 1 integer ssssssi
 
-print "bind statement was sucessfull<br /";
+print "bind statement was sucessfull/n";
 
 $stmt->bind_param("sssssii",$uname,$email,$phone,$s3rawurl,$s3finishedurl,$jpgfilename,$state);
 if (!$stmt->execute()) {
