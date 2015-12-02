@@ -36,7 +36,7 @@ echo 'Here is some more debugging info:';
 print_r($_FILES);
 print "</pre>"
 
-use Aws\S3\S3Client;
+#use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
     'region'  => 'us-east-1'
