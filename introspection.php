@@ -12,12 +12,11 @@ session_start();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style=background-image:url(http://www.planwallpaper.com/static/images/abstract-colourful-cool-wallpapers-55ec7905a6a4f.jpg)>
 
-<div class="container-fluid">
- <h1>Welcome to IntroSpection Page</h1>
- <h4><li><a href="index.php">Form WD40</a></li></h4>
-
+<div class="container">
+ <h1>Database backup successfully created and uploaded in s3 bucket</h1>
+ 
 <?php
 require 'vendor/autoload.php';
 
@@ -51,7 +50,7 @@ $dbpath=$uploaddir.$dbbucket. '.' . 'sql';
 $sqlcon="mysqldump --user=$dbuser --password=$dbpass --host=$endpoint $dbname > $dbpath";
 exec($sqlcon);
 
-print_r($_FILES);
+#print_r($_FILES);
 #print "==Successfully connected to databases, now creating S3==";
 
 $s3 = new Aws\S3\S3Client([
@@ -80,18 +79,15 @@ $result = $s3->putObject([
 //url
 $url = $result['ObjectURL'];
 ?>
-<h1>
-<?ph
-print "\nCongratz, Database backup successfully created and uploaded in s3 bucket.<br />";
-?>
-</h1>
-<h2>
+
+<h3>
 <?php
-print "\nHere is the link of database backup directory<br />";
+print "\nHere is the link of database backup directory:<br />";
 echo $url;
 ?>
-</h2>
-<h4><li><a href="index.php">Click Here to go Back to previus page</a></li></h4>
+</h3>
+<h4><li><a href="index.php">Click Here to go back to previus page</a></li></h4>
+
 </div>
 </body>
 </html>
