@@ -12,7 +12,7 @@ session_start();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
-<body style=background-image:url(http://www.planwallpaper.com/static/images/abstract-colourful-cool-wallpapers-55ec7905a6a4f.jpg)>
+<body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>
 
 <div class="container">
  <h1>Database backup successfully created and uploaded in s3 bucket</h1>
@@ -92,4 +92,4 @@ echo $url;
 </body>
 </html>
 
-<!--The above html code copied from http://www.w3schools.com/bootstrap/bootstrap_get_started.asp-->
+<!--code source http://www.w3schools.com/bootstrap/bootstrap_get_started.asp-->
