@@ -69,7 +69,7 @@ $result = $s3->putObject([
         'SourceFile' => $uploadfile
 ]);  
 
-//Prepare rawurl
+//Object URL
 $url = $result['ObjectURL'];
 echo $url;
 
@@ -96,7 +96,7 @@ $result = $s3->createBucket
     ]);
 */
 
-print "==Creating S3 bucket, now putting obj in it==";
+print "==Created S3 bucket, now putting obj in it==";
 
 // Put rendered objects in s3
 $result = $s3->putObject([
