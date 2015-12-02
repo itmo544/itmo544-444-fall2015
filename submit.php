@@ -101,8 +101,8 @@ $finishedresult = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
     'Key' => $uploadfile,
-    'ContentType' => $_FILES['userfile']['tmp_name'],
-    'SourceFile' => "images/out.png",
+    #'ContentType' => $_FILES['userfile']['tmp_name'],
+    'SourceFile' => "images/out.png"
 ]);
 
 print "==Successfully put object in s3, here is the URL==";
