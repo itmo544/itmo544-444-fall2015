@@ -15,7 +15,7 @@ session_start();
 </head>
 
 <body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>
-<div class="container-fluid">
+<div class="container">
   <h1>Form WD40</h1>
   <p>All Fields Required</p>
 
