@@ -77,7 +77,7 @@ print "==Creating Variables==";
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
 $images->thumbnailImage(1024,0);
-#$images->setImageFormat ("png");
+#$image->setImageFormat ("png");
 $images->writeImages('images/out.png',false);
 
 //fixed bucket name

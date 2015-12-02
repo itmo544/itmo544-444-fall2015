@@ -14,7 +14,7 @@ session_start();
 </head>
 <body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>
 
-<div class="container">
+<div class="container-fluid">
  <h1>Database backup successfully created and uploaded in s3 bucket</h1>
  
 <?php
@@ -80,13 +80,13 @@ $result = $s3->putObject([
 $url = $result['ObjectURL'];
 ?>
 
-<h3>
+<h4>
 <?php
 print "\nHere is the link of database backup directory:<br />";
 echo $url;
 ?>
-</h3>
-<h4><li><a href="index.php">Click Here to go back to previus page</a></li></h4>
+</h4>
+<h5><li><a href="index.php">Click Here to go back to previus page</a></li></h5>
 
 </div>
 </body>
