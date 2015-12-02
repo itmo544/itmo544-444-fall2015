@@ -98,13 +98,6 @@ print "==Created S3 bucket, now putting obj in it==";
 
 // Put rendered objects in s3
 $finishedresult = $s3->putObject([
-        'ACL' => 'public-read',
-        'Bucket' => $bucket,
-        'Key' => $uploadfile,
-        'ContentType' => $_FILES['userfile']['tmp_name'],
-        'SourceFile' => "images/out.png"
-]);
-$finishedresult = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
     'Key' => $uploadfile,
