@@ -115,7 +115,7 @@ $finishedresult = $s3->putObject([
 print "==Successfully put object in s3, here is the URL==";
 
 //finished s3 url
-$finishedimageurl = $result['ObjectURL'];
+$finishedimageurl = $finishedresult['ObjectURL'];
 echo $finishedimageurl;
 
 print "==End of Image Magic now resuming Other submit.php tasks==";
