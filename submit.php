@@ -69,10 +69,11 @@ $result = $s3->putObject([
         'SourceFile' => $uploadfile
 ]);  
 
-/* Comment out for now until it's fixed
-
 //Image Magick
+print "==Imagick starting..==";
 $images = new Imagick(glob($uploadfile));
+
+print "==Creating Variables==";
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
 $images->thumbnailImage(1024,0);
@@ -109,7 +110,7 @@ $url = $result['ObjectURL'];
 print "==Successfully put object in s3, here is the URL==";
 echo $url;
 print "==End of Image Magic now resuming Other submit.php tasks==";
-*/
+
 $rds = new Aws\Rds\RdsClient([
         'version' => 'latest',
         'region'  => 'us-east-1'
