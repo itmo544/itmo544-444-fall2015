@@ -18,9 +18,9 @@ session_start();
   <h3>Your EMail ID</h3>
 
 <?php
-$useremail = $_POST["useremail"];
-echo $useremail;
-#echo $_POST['email'];
+#useremail = $_POST["useremail"];
+#echo $useremail;
+echo $_POST['email'];
 	
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
@@ -58,7 +58,7 @@ $result = $s3->createBucket
         'Bucket' => $bucket
     ]);
 
-#$s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
+$s3->waitUntil('BucketExists', array( 'Bucket' => $bucket));
 
 // PHP version 3 for putting object in s3
 $result = $s3->putObject([
@@ -70,49 +70,51 @@ $result = $s3->putObject([
 ]);  
 
 //Prepare rawurl
-$rawurl = $result['ObjectURL'];
+$url = $result['ObjectURL'];
+echo $url;
 
 //Image Magick
 print "==Imagick starting..==";
-$images = new Imagick($uploadfile));
+$image = new Imagick($uploadfile));
 
 print "==Creating Variables==";
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
-$images->thumbnailImage(1024,0);
+$image-> thumbnailImage(200, null);
 #$image->setImageFormat ("png");
-$images->writeImages('imagickimages/out.png',false);
+$image-> writeImages('images/out.png',false);
 
+/*
 //fixed bucket name
-$imagickbucket = 'php-sb-imagick-';
-
+#$imagickbucket = 'php-sb-imagick-';
 print "==Setup for imagic completed, now creating S3 bucket==";
-
 // create bucket for rendered images
 $result = $s3->createBucket
     ([
         'ACL' => 'public-read',
         'Bucket' => $imagickbucket
     ]);
+*/
 
 print "==Creating S3 bucket, now putting obj in it==";
+
 // Put rendered objects in s3
 $result = $s3->putObject([
         'ACL' => 'public-read',
-        'Bucket' => $imagickbucket,
-        'Key' => "Rendered file:".$uploadfile,
-        #'ContentType' => $_FILES['userfile']['tmp_name'],
-        'SourceFile' => "imagickimages/out.png"
+        'Bucket' => $bucket,
+        'Key' => $uploadfile,
+        'ContentType' => $_FILES['userfile']['tmp_name'],
+        'SourceFile' => "images/out.png"
 ]);
 
 //finished s3 url
-$finishedimgaeurl = $result['ObjectURL'];
+$finishedimageurl = $result['ObjectURL'];
+echo $finishedimageurl
 
-$url = $result['ObjectURL'];
 print "==Successfully put object in s3, here is the URL==";
-echo $url;
 print "==End of Image Magic now resuming Other submit.php tasks==";
 
+//Relational Database Connection
 $rds = new Aws\Rds\RdsClient([
         'version' => 'latest',
         'region'  => 'us-east-1'
