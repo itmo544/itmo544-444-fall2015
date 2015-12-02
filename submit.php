@@ -75,8 +75,6 @@ echo $url;
 print "Imagick starting<br />";
 $imagemagick = new Imagick($uploadfile);
 
-print "Creating Variables<br />";
-
 // Providing 0 forces thumbnailImage to maintain aspect ratio
 $imagemagick->thumbnailImage(800,600);
 #$image->setImageFormat ("png");
@@ -86,15 +84,12 @@ $imagemagick->writeImage($uploadfile);
 //fixed bucket name
 $imagickbucket = 'php-imagick-';
 
-print "Setup for imagic completed, now creating S3 bucket<br />";
 // create bucket for rendered images
 
 $result = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $imagickbucket
 ]);
-
-print "Created S3 bucket, now putting obj in it<br />";
 
 // Put rendered objects in s3
 $result = $s3->putObject([
@@ -105,13 +100,9 @@ $result = $s3->putObject([
     'SourceFile' => $uploadfile
 ]);
 
-print "==Successfully put object in s3, here is the URL==";
-
 //finished s3 url
 $imagickurl = $result['ObjectURL'];
 echo $imagickurl;
-
-print "End of Image Magic now resuming Other submit.php tasks<br />";
 
 //Relational Database Connection
 $rds = new Aws\Rds\RdsClient([
@@ -124,28 +115,23 @@ $result = $rds->describeDBInstances([
 ]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "\n============\n" . $endpoint . "\n================\n<br />";
+print "============<br />" . $endpoint . "================<br />";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
 
-print "connection to database was sucessfull<br /";
-
-/*// check connection
+// check connection
 if (mysqli_connect_errno()) 
     {
         printf("Connect failed: %s\n", mysqli_connect_error());
         exit();
     }
-*/
 
 // Prepared statement, stage 1: prepare
 if (!($stmt = $link->prepare("INSERT INTO items (id,uname,email,phone,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?,?,?)"))) 
     {
          echo "Prepare failed: (" . $link->errno . ") " . $link->error;
     }
-
-print "prepare statement was sucessfull<br /";
 
 $email = $_POST['useremail'];
 $uname = $_POST['uname'];
@@ -167,12 +153,15 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 
 // explicit close recommended
 $stmt->close();
-$link->real_query("SELECT * FROM items");
+$link->real_query("SELECT * FROM items WHERE email = '$email'");
+//$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+	echo $row['id'] . "Email: " . $row['email'];
+	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
+$link->close();
 
 //CREATE SNS TOPIC
 use Aws\Sns\SnsClient;
