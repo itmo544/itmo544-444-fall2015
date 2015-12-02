@@ -89,17 +89,17 @@ $imagickbucket = 'php-imagick-';
 print "==Setup for imagic completed, now creating S3 bucket==";
 // create bucket for rendered images
 
-$finishedresult = $s3->createBucket([
-        'ACL' => 'public-read',
-        'Bucket' => $imagickbucket
+$result = $s3->createBucket([
+    'ACL' => 'public-read',
+    'Bucket' => $imagickbucket
 ]);
 
 print "==Created S3 bucket, now putting obj in it==";
 
 // Put rendered objects in s3
-$finishedresult = $s3->putObject([
+$result = $s3->putObject([
     'ACL' => 'public-read',
-    'Bucket' => $imagicbucket,
+    'Bucket' => $imagickbucket,
     'Key' => $uploadfile,
     #'ContentType' => $_FILES['userfile']['tmp_name'],
     'SourceFile' => $uploadfile
@@ -108,8 +108,8 @@ $finishedresult = $s3->putObject([
 print "==Successfully put object in s3, here is the URL==";
 
 //finished s3 url
-$finishedimageurl = $finishedresult['ObjectURL'];
-echo $finishedimageurl;
+$imagickurl = $result['ObjectURL'];
+echo $imagickurl;
 
 print "==End of Image Magic now resuming Other submit.php tasks==";
 
