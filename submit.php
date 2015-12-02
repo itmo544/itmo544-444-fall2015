@@ -69,16 +69,19 @@ $result = $s3->putObject([
         'SourceFile' => $uploadfile
 ]);  
 
+//Prepare rawurl
+$rawurl = $result['ObjectURL'];
+
 //Image Magick
 print "==Imagick starting..==";
-$images = new Imagick(glob($uploadfile));
+$images = new Imagick($uploadfile));
 
 print "==Creating Variables==";
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
 $images->thumbnailImage(1024,0);
 #$image->setImageFormat ("png");
-$images->writeImages('images/out.png',false);
+$images->writeImages('imagickimages/out.png',false);
 
 //fixed bucket name
 $imagickbucket = 'php-sb-imagick-';
@@ -99,11 +102,10 @@ $result = $s3->putObject([
         'Bucket' => $imagickbucket,
         'Key' => "Rendered file:".$uploadfile,
         #'ContentType' => $_FILES['userfile']['tmp_name'],
-        'SourceFile' => "images/out.png"
+        'SourceFile' => "imagickimages/out.png"
 ]);
 
 //finished s3 url
-$finishedurl = $result['ObjectURL'];
 $finishedimgaeurl = $result['ObjectURL'];
 
 $url = $result['ObjectURL'];
