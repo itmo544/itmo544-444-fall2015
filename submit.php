@@ -204,7 +204,7 @@ sleep(30);
 $result = $sns->publish
 ([
     	'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
-	'Subject' => 'Pictured Uploaded in S3 bucket',    
+	'Subject' => 'Picture uploaded in S3 bucket',    
 	'TopicArn' => $ARN,
 ]);
 
