@@ -14,7 +14,7 @@
 
 <?php
 session_start();
-#$email = $_POST["email"];
+$email = $_POST["email"];
 #echo $email;
 require 'vendor/autoload.php';
 
@@ -44,11 +44,18 @@ if (mysqli_connect_errno()) {
 $link->real_query("SELECT * FROM items WHERE email = '$email'");
 //$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
-echo "Result set order...\n";
-echo "";
+#echo "Result set order...\n";
+?>
+<h4>
+<?php
 while ($row = $res->fetch_assoc()) {
-	echo $row['id'] . "Email: " . $row['email'];
-	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
+	echo "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
+?>
+</h4>
+
+<h4>
+<?php
+	echo "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
 $link->close();
 ?>
