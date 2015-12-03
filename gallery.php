@@ -14,8 +14,8 @@
 
 <?php
 session_start();
-$email = $_POST["email"];
-echo $email;
+#$email = $_POST["email"];
+#echo $email;
 require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient;
@@ -29,7 +29,7 @@ $result = $rds->describeDBInstances([
 ]);
 $endpoint = "";
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "\n============\n" . $endpoint . "\n================\n";
+#print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
