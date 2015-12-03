@@ -14,8 +14,7 @@
 
 <?php
 session_start();
-$email = $_POST["email"];
-echo $email;
+
 require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient;
@@ -45,6 +44,9 @@ $link->real_query("SELECT * FROM items WHERE email = '$email'");
 //$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 echo "Result set order...\n";
+$email = $_POST["email"];
+echo $email;
+#echo $_POST['email'];
 while ($row = $res->fetch_assoc()) {
 	echo $row['id'] . "Email: " . $row['email'];
 	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
