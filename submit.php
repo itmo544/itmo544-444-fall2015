@@ -96,8 +96,9 @@ $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $imagickbucket,
     'Key' => $uploadfile,
-    #'ContentType' => $_FILES['userfile']['tmp_name'],
+    'ContentType' => $_FILES['userfile']['tmp_name'],
     'SourceFile' => $uploadfile
+    'Body' => fopen($uploadfile, 'r+')
 ]);
 
 //finished s3 url
@@ -160,7 +161,7 @@ while ($row = $res->fetch_assoc()) {
     echo $row['id'] . "Email: " . $row['email'];
 	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
-$link->close();
+#$link->close();
 
 //CREATE SNS TOPIC
 use Aws\Sns\SnsClient;
