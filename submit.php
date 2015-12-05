@@ -63,8 +63,9 @@ $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
     'Key' => $uploadfile,
-    #'ContentType' => $_FILES['userfile']['tmp_name'],
-    'SourceFile' => $uploadfile
+    'ContentType' => $_FILES['userfile']['tmp_name'],
+    'SourceFile' => $uploadfile,
+	'Body' => fopen($uploadfile, 'r+')
 ]); 
 
 //Object URL
@@ -76,7 +77,7 @@ print "Imagick starting<br />";
 $imagemagick = new Imagick($uploadfile);
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
-$imagemagick->thumbnailImage(800,600);
+$imagemagick->thumbnailImage(150,150);
 #$image->setImageFormat ("png");
 #$imagemagick->writeImage('images/out.png',false);
 $imagemagick->writeImage($uploadfile);
@@ -97,7 +98,7 @@ $result = $s3->putObject([
     'Bucket' => $imagickbucket,
     'Key' => $uploadfile,
     'ContentType' => $_FILES['userfile']['tmp_name'],
-    'SourceFile' => $uploadfile
+    'SourceFile' => $uploadfile,
     'Body' => fopen($uploadfile, 'r+')
 ]);
 
@@ -152,14 +153,17 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 
 /* explicit close recommended */
 $stmt->close();
-
-$link->real_query("SELECT * FROM items");
+$link->real_query("SELECT * FROM items WHERE email='".$email."'");
+#$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
-
-echo "Result set order...\n";
+#echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . "Email: " . $row['email'];
-	echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
+	echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
+	echo "<br/>\n" . "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>" . "<br/>\n";
+}
+	#echo $row['id'] . "Email: " . $row['email'];
+	#echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
+
 }
 #$link->close();
 
@@ -204,11 +208,10 @@ sleep(30);
 //PUBLISH
 $result = $sns->publish
 ([
-    	'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
+    'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
 	'Subject' => 'Picture uploaded in S3 bucket',    
 	'TopicArn' => $ARN,
 ]);
-
 
 $link->close();
 header('Location: gallery.php');
