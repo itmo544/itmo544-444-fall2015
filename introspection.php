@@ -96,7 +96,8 @@ echo $url;
 ?>
 
 	
-<h5><a href="index.php">Click Here to go back to previus page</a></h5>
+<h5><a href="index.php">Add more Entried here: </a></h5>
+<iframe width="100%" height="300px" src="index.php" name="1040E"></iframe>
 </div>
 </body>
 </html>
