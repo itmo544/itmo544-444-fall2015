@@ -12,10 +12,10 @@ session_start();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
+<body>
 
-<body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>
-<div class="container-fluid">
-  <h3>Congratulations!!!</h3>
+	<div class="container-fluid">
+	<h3>Congratulations!!!</h3>
 
 <?php
 echo $_POST['email'];
@@ -148,7 +148,7 @@ if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 }
 
-printf("%d 1 Row sucessfully inserted into database.\n", $stmt->affected_rows);
+printf("%d Row sucessfully inserted into database.\n", $stmt->affected_rows);
 
 
 /* explicit close recommended */
