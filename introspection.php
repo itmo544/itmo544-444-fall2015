@@ -83,23 +83,25 @@ $result = $s3->putObject([
 ]); 
 ?>
 
-<h4>
+<h5>
 <?php
 //url
-echo "Here is the link for database backup<br/>\n";
+echo "Here is the link for database backup:<br/>\n";
 ?>
-</h4>
+</h5>
 
 <?php
 $url = $result['ObjectURL'];
 echo $url;
 ?>
-
+<br> <br />
 <form action="index.php">
-    		<input type="submit" value="Index.php">
-	</form>
-<h4><a href="index.php">Add more Pictures here: </a></h4>
-<iframe width="100%" height="700px" src="index.php" name="1040E"></iframe>
+   	<br /><input type="submit" value="Add more Pictures here:">
+</form>
+
+<!--<h4><a href="index.php">Add more Pictures here: </a></h4-->
+<iframe width="40%" height="500px" src="index.php" name="Form WD40"></iframe>
+
 </div>
 </body>
 </html>

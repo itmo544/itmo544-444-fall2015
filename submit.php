@@ -19,7 +19,7 @@ div.custom {
 </head>
 <body>
 	<div class="custom">
-	<h3>Congratulations!!!</h3>
+	<h2>Congratulations!!!</h2>
 
 
 <?php
@@ -209,6 +209,10 @@ $result = $sns->publish
 $link->close();
 #header('Location: gallery.php');
 ?>
+<br> <br />
+<form action="index.php">
+   	<br /><input type="submit" value="Add more Pictures here:">
+</form>
 
 </div>
 </body>
