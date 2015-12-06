@@ -14,8 +14,6 @@
 
 <?php
 session_start();
-$email = $_POST["email"];
-#echo $email;
 require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient;
@@ -32,7 +30,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 #print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -41,25 +39,40 @@ if (mysqli_connect_errno()) {
 }
 
 //below line is unsafe - $email is not checked for SQL injection -- don't do this in real life or use an ORM instead
-$link->real_query("SELECT * FROM items WHERE email = '$email'");
-//$link->real_query("SELECT * FROM items");
+if (!empty($_POST['email'])){
+$email = $_POST["email"];
+$link->real_query("SELECT * FROM items WHERE email='".$email."'");
+}else{
+$link->real_query("SELECT * FROM items");
+}
 $res = $link->use_result();
-#echo "Result set order...\n";
 ?>
 <h4>
 <?php
 while ($row = $res->fetch_assoc()) {
-	echo "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
-?>
+        echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
+        echo "<br/>\n" . "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>" . "<br/>\n";
+}
+
+$link->close();
+?>                      
 </h4>
 
-<h4>
-<?php
+/*
+// old code
+$link->real_query("SELECT * FROM items WHERE email = '$email'");
+//$link->real_query("SELECT * FROM items");
+$res = $link->use_result();
+#echo "Result set order...\n";
+
+while ($row = $res->fetch_assoc()) {
+	echo "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
 	echo "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
 }
 $link->close();
 ?>
-
+*/
+	
 </div>
 </body>
 </html>
