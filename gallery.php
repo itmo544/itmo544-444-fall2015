@@ -48,30 +48,14 @@ $link->real_query("SELECT * FROM items");
 }
 $res = $link->use_result();
 while ($row = $res->fetch_assoc()) {
-        echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
-        echo "<br/>\n" . "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>" . "<br/>\n";
+	echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
+	echo "<br/>\n" . "Raw Image: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "\"/>";
+	echo "<br/>\n" . "Thumbnail: " . "<br/>\n" . "<img src =\" " . $row['s3finishedurl'] . "\"/>";
 }
 
 $link->close();
 ?>                      
 
-/*
-<!--
-// old code
-$link->real_query("SELECT * FROM items WHERE email = '$email'");
-//$link->real_query("SELECT * FROM items");
-$res = $link->use_result();
-#echo "Result set order...\n";
-
-while ($row = $res->fetch_assoc()) {
-	echo "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
-	echo "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
-}
-$link->close();
-?>
--->
-*/
-	
 </div>
 </body>
 </html>
