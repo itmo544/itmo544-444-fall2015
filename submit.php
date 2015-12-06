@@ -163,9 +163,8 @@ $res = $link->use_result();
 <?php
 while ($row = $res->fetch_assoc()) {
 	echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
-#	echo "<br/>\n" . "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>" . "<br/>\n";
-	echo "<br/>\n" . "Raw Image: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "\"/>";
 	echo "<br/>\n" . "Thumbnail: " . "<br/>\n" . "<img src =\" " . $row['s3finishedurl'] . "\"/>";
+	echo "<br/>\n" . "Raw Image: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "\"/>";
 }
 ?>
 </h4>
@@ -184,7 +183,7 @@ $result = $sns->createTopic([
 	'Name' => 'mp2web', //Required
 ]);
 
-echo $result;
+#echo $result;
 
 
 //DISPLAY NAME ATTRIBUTES
@@ -207,14 +206,14 @@ $result = $sns->subscribe
 ]);
 
 //WAIT FOR PENDING SUBSCRIPTION - SLEEP FOR 30 SECONDS
-echo "Wait 30 seconds for Pending Confirmation";
+#echo "Wait 30 seconds for Pending Confirmation";
 sleep(30);
 
 //PUBLISH
 $result = $sns->publish
 ([
-    'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
-	'Subject' => 'Picture uploaded in S3 bucket',    
+	'Subject' => 'Picture uploaded in S3 bucket',
+	'Message' => 'Congratulations!! You sucessfully subscribed.', // REQUIRED
 	'TopicArn' => $ARN,
 ]);
 
