@@ -15,7 +15,7 @@ session_start();
 
 <body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>
 <div class="container-fluid">
-  <h3>Your EMail ID</h3>
+  <h3>Congratulations!!!</h3>
 
 <?php
 echo $_POST['email'];
@@ -34,8 +34,8 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
 	{
 		echo "Possible file upload attack!\n";
 	}
-echo 'Here is some more debugging info:';
-print_r($_FILES);
+#echo 'Here is some more debugging info:';
+#print_r($_FILES);
 print "</pre>";
 
 require 'vendor/autoload.php';
@@ -70,10 +70,10 @@ $result = $s3->putObject([
 
 //Object URL
 $url = $result['ObjectURL'];
-echo $url;
+#echo $url;
 
 //Image Magick
-print "Imagick starting<br />";
+#print "Imagick starting<br />";
 $imagemagick = new Imagick($uploadfile);
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
@@ -104,7 +104,7 @@ $result = $s3->putObject([
 
 //finished s3 url
 $imagickurl = $result['ObjectURL'];
-echo $imagickurl;
+#echo $imagickurl;
 
 //Relational Database Connection
 use Aws\Rds\RdsClient;
@@ -118,7 +118,7 @@ $result = $rds->describeDBInstances([
 ]);
 $endpoint = "";
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "\n============\n" . $endpoint . "\n================\n";
+#print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
@@ -148,7 +148,7 @@ if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 }
 
-printf("%d Row inserted.\n", $stmt->affected_rows);
+printf("%d 1 Row sucessfully inserted into database.\n", $stmt->affected_rows);
 
 
 /* explicit close recommended */
@@ -157,16 +157,21 @@ $link->real_query("SELECT * FROM items WHERE email='".$email."'");
 #$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 #echo "Result set order...\n";
+?>
+
+<h4>
+<?php
 while ($row = $res->fetch_assoc()) {
 	echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
-	echo "<br/>\n" . "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>" . "<br/>\n";
+#	echo "<br/>\n" . "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>" . "<br/>\n";
+	echo "<br/>\n" . "Raw Image: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "\"/>";
+	echo "<br/>\n" . "Thumbnail: " . "<br/>\n" . "<img src =\" " . $row['s3finishedurl'] . "\"/>";
 }
-	#echo $row['id'] . "Email: " . $row['email'];
-	#echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
+?>
+</h4>
 
-}
-#$link->close();
-
+	
+<?php
 //CREATE SNS TOPIC
 use Aws\Sns\SnsClient;
 $sns = new Aws\Sns\SnsClient
