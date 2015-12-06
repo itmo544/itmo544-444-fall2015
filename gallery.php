@@ -7,8 +7,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
-<body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>
+<!--<body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>-->
 
+<body>
 <div class="container-fluid">
  <h1>Welcome to the Gallery</h1>
 
@@ -46,9 +47,6 @@ $link->real_query("SELECT * FROM items WHERE email='".$email."'");
 $link->real_query("SELECT * FROM items");
 }
 $res = $link->use_result();
-?>
-<h4>
-<?php
 while ($row = $res->fetch_assoc()) {
         echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
         echo "<br/>\n" . "Your Pictures: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "<br/>\n" . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>" . "<br/>\n";
@@ -56,9 +54,9 @@ while ($row = $res->fetch_assoc()) {
 
 $link->close();
 ?>                      
-</h4>
 
 /*
+<!--
 // old code
 $link->real_query("SELECT * FROM items WHERE email = '$email'");
 //$link->real_query("SELECT * FROM items");
@@ -71,6 +69,7 @@ while ($row = $res->fetch_assoc()) {
 }
 $link->close();
 ?>
+-->
 */
 	
 </div>
