@@ -8,19 +8,22 @@ session_start();
   <title>Submit.php</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+div.custom {
+    background-color:black;
+    color:skyblue;
+    margin:20px;
+    padding:20px;
+}	
+</style>
 </head>
 <body>
-
-	<div class="container-fluid">
+	<div class="custom">
 	<h3>Congratulations!!!</h3>
+
 
 <?php
 echo $_POST['email'];
-#useremail = $_POST["useremail"];
-#echo $useremail;
 	
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
@@ -34,8 +37,6 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
 	{
 		echo "Possible file upload attack!\n";
 	}
-#echo 'Here is some more debugging info:';
-#print_r($_FILES);
 print "</pre>";
 
 require 'vendor/autoload.php';
@@ -70,16 +71,12 @@ $result = $s3->putObject([
 
 //Object URL
 $url = $result['ObjectURL'];
-#echo $url;
 
 //Image Magick
-#print "Imagick starting<br />";
 $imagemagick = new Imagick($uploadfile);
 
 // Providing 0 forces thumbnailImage to maintain aspect ratio
-$imagemagick->thumbnailImage(150,150);
-#$image->setImageFormat ("png");
-#$imagemagick->writeImage('images/out.png',false);
+$imagemagick->thumbnailImage(200,200);
 $imagemagick->writeImage($uploadfile);
 
 //fixed bucket name
@@ -104,7 +101,6 @@ $result = $s3->putObject([
 
 //finished s3 url
 $imagickurl = $result['ObjectURL'];
-#echo $imagickurl;
 
 //Relational Database Connection
 use Aws\Rds\RdsClient;
@@ -118,7 +114,6 @@ $result = $rds->describeDBInstances([
 ]);
 $endpoint = "";
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-#print "\n============\n" . $endpoint . "\n================\n";
 
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","customerrecords",3306) or die("Error " . mysqli_error($link));
@@ -150,13 +145,10 @@ if (!$stmt->execute()) {
 
 printf("%d Row sucessfully inserted into database.\n", $stmt->affected_rows);
 
-
 /* explicit close recommended */
 $stmt->close();
 $link->real_query("SELECT * FROM items WHERE email='".$email."'");
-#$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
-#echo "Result set order...\n";
 ?>
 
 <h4>
@@ -182,9 +174,6 @@ $sns = new Aws\Sns\SnsClient
 $result = $sns->createTopic([
 	'Name' => 'mp2web', //Required
 ]);
-
-#echo $result;
-
 
 //DISPLAY NAME ATTRIBUTES
 
@@ -218,9 +207,10 @@ $result = $sns->publish
 ]);
 
 $link->close();
-header('Location: gallery.php');
-
+#header('Location: gallery.php');
 ?>
+
 </div>
 </body>
 </html>
+<!--source: http://www.w3schools.com/html/html_classes.asp-->

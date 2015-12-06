@@ -8,13 +8,18 @@ session_start();
   <title>IntroSpection</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+div.custom {
+    background-color:black;
+    color:skyblue;
+    margin:20px;
+    padding:20px;
+}	
+</style>
 </head>
-<body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>
+<body>
 
-<div class="container-fluid">
+<div class="custom">
  <h1>Database backup successfully created and uploaded in s3 bucket</h1>
  
 <?php
@@ -91,9 +96,9 @@ echo $url;
 ?>
 
 	
-<h5><li><a href="index.php">Click Here to go back to previus page</a></li></h5>
+<h5><a href="index.php">Click Here to go back to previus page</a></h5>
 </div>
 </body>
 </html>
 
-<!--code source http://www.w3schools.com/bootstrap/bootstrap_get_started.asp-->
+<!--source: http://www.w3schools.com/html/html_classes.asp-->

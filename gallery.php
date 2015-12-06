@@ -3,15 +3,18 @@
   <title>Gallery</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+div.custom {
+    background-color:black;
+    color:skyblue;
+    margin:20px;
+    padding:20px;
+}	
+</style>
 </head>
-<!--<body style=background-image:url(https://wallpaperscraft.com/image/rain_tree_streams_bad_weather_precipitation_green_despondency_inclination_62354_1920x1080.jpg)>-->
-
 <body>
-<div class="container-fluid">
- <h1>Welcome to the Gallery</h1>
+	<div class="custom">
+	<h1>Welcome to the Gallery</h1>
 
 <?php
 session_start();
@@ -49,8 +52,9 @@ $link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 while ($row = $res->fetch_assoc()) {
 	echo "<br/>\n" . "Your ID # " . $row['id'] . "<br/>\n" . "Email: " . $row['email'];
+	echo "<br/>\n" . "Thumbnail: " . "<br/>\n" . "<img src =\" " . $row['s3finishedurl'] . "\"/>";		
 	echo "<br/>\n" . "Raw Image: " . "<br/>\n" . "<img src =\" " . $row['s3rawurl'] . "\"/>";
-	echo "<br/>\n" . "Thumbnail: " . "<br/>\n" . "<img src =\" " . $row['s3finishedurl'] . "\"/>";
+	
 }
 
 $link->close();
@@ -60,5 +64,5 @@ $link->close();
 </body>
 </html>
 
-<!--The above html code borrowed from http://www.w3schools.com/bootstrap/bootstrap_get_started.asp-->
+<!--source: http://www.w3schools.com/html/html_classes.asp-->
 
