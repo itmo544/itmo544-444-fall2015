@@ -46,7 +46,11 @@ div.custom {
 	<input type="submit" value="Load Gallery" />
 	</form>
 
-	<h4><a href="introspection.php">Click Here to Backup entire database in S3 Bucket</a></h4>
+	<form action="introspection.php">
+    		<input type="submit" value="Backup Database into S3 Bucket">
+	</form><br />
+
+<!--<h4><a href="introspection.php">Click Here to Backup entire database in S3 Bucket</a></h4-->
 
 </div>
 </body>

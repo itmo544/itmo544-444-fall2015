@@ -20,7 +20,7 @@ div.custom {
 <body>
 
 <div class="custom">
- <h1>Database backup successfully created and uploaded in s3 bucket</h1>
+ <h2>Database backup successfully created and uploaded in s3 bucket</h2>
  
 <?php
 require 'vendor/autoload.php';
@@ -95,9 +95,11 @@ $url = $result['ObjectURL'];
 echo $url;
 ?>
 
-	
-<h5><a href="index.php">Add more Entried here: </a></h5>
-<iframe width="100%" height="300px" src="index.php" name="1040E"></iframe>
+<form action="index.php">
+    		<input type="submit" value="Index.php">
+	</form>
+<h4><a href="index.php">Add more Pictures here: </a></h4>
+<iframe width="100%" height="700px" src="index.php" name="1040E"></iframe>
 </div>
 </body>
 </html>
