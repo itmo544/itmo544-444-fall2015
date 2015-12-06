@@ -100,7 +100,7 @@ echo $url;
 </form>
 
 <!--<h4><a href="index.php">Add more Pictures here: </a></h4-->
-<iframe width="40%" height="500px" src="index.php" name="Form WD40"></iframe>
+<iframe width="50%" height="600px" src="index.php" name="Form WD40"></iframe>
 
 </div>
 </body>
